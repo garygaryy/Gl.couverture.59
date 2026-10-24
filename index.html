@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GL Couverture Lille — couvreur à Lille</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f5; --ink:#1e2429; --muted:#5c6770; --brique:#e85d2c; --orange:#ff6b2c; --panel:#ffffff; --line:#e8e0d6;
+  --font:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d262d;--ink:#f6efe6;--muted:#b4c0ca;--panel:#26313a;--line:#37444f}}
+:root[data-theme="dark"]{--bg:#1d262d;--ink:#f6efe6;--muted:#b4c0ca;--panel:#26313a;--line:#37444f}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font)}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;gap:2.5rem;padding:clamp(1.25rem,4vw,3rem);position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;inset:-20% -10% auto;height:70%;background:radial-gradient(ellipse at 70% 20%,rgba(242,180,65,.18),transparent 55%),radial-gradient(ellipse at 10% 60%,rgba(210,87,58,.12),transparent 50%);pointer-events:none}
+.cover::after{content:"";position:absolute;right:-8%;bottom:8%;width:min(42vw,22rem);height:min(42vw,22rem);border:2px solid rgba(242,180,65,.25);border-radius:50%;pointer-events:none}
+header{display:flex;justify-content:space-between;align-items:center;color:var(--muted);position:relative;z-index:1}
+header strong{color:var(--ink)}
+h1{font-weight:800;font-size:clamp(3.5rem,17vw,13rem);line-height:.88;letter-spacing:-.04em;position:relative;z-index:1}
+h1 span{display:block;color:var(--brique);background:linear-gradient(90deg,var(--jaune),var(--brique));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{font-size:clamp(1.2rem,3vw,1.9rem);line-height:1.25;max-width:28ch;margin-top:1.75rem;position:relative;z-index:1}
+footer{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;align-items:flex-end;justify-content:space-between}
+ul.s{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,auto);gap:.5rem 2.5rem;font-size:1.05rem}
+ul.s li::before{content:"";display:inline-block;width:.6rem;height:.6rem;background:var(--brique);margin-right:.6rem;border-radius:0 0 .6rem .6rem}
+a.cta,button.cta{background:var(--brique);color:#fff;text-decoration:none;font:inherit;font-weight:800;padding:1rem 1.75rem;border-radius:.4rem;font-size:1.05rem;border:0;cursor:pointer;display:inline-block}
+a.cta:hover{background:var(--ink);color:var(--bg)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.mail{display:block;color:var(--muted);font-size:.9rem;margin-top:.6rem;text-align:right}
+section{padding:clamp(2rem,6vw,5rem) clamp(1.25rem,4vw,3rem)}
+h2{font-size:clamp(2rem,6vw,4rem);letter-spacing:-.03em;line-height:1;margin-bottom:.75rem}
+.sub{color:var(--muted);max-width:52ch;margin-bottom:2rem;line-height:1.4}
+.sim{display:grid;grid-template-columns:minmax(0,2fr) minmax(16rem,1fr);gap:1.5rem;align-items:start}
+.view{background:var(--panel);border-radius:.6rem;overflow:hidden;border:1px solid var(--line)}
+.view svg,.card svg{display:block;width:100%;height:auto}
+.view{position:relative;aspect-ratio:16/10;touch-action:none;cursor:grab}
+.view canvas{display:block;width:100%;height:100%}
+.view:fullscreen{aspect-ratio:auto;border-radius:0}
+.zoom-ctl{position:absolute;bottom:.75rem;right:.75rem;display:flex;flex-direction:column;gap:.35rem;z-index:2}
+.zoom-ctl button{width:2.4rem;height:2.4rem;border:1px solid rgba(255,255,255,.25);background:rgba(39,50,59,.85);color:#f6efe6;border-radius:.4rem;font:inherit;font-weight:800;font-size:1.2rem;cursor:pointer;line-height:1;backdrop-filter:blur(6px)}
+.zoom-ctl button:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.logo .mk{filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.gal .card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.gal .card{transition:transform .25s,box-shadow .25s}
+.gal .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.ctl{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:1.25rem;display:grid;gap:1.25rem}
+.ctl h3{font-size:1rem;margin-bottom:.5rem}
+.row{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:.4rem;padding:.55rem .9rem;font:inherit;cursor:pointer}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sw{width:2.6rem;height:2.6rem;border-radius:.45rem;border:2px solid rgba(255,255,255,.15);cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.sw[aria-pressed="true"]{border-color:var(--jaune);outline:2px solid var(--bg);outline-offset:-4px;box-shadow:0 0 0 2px var(--jaune)}
+#cols .sw,#walls .sw{min-width:2.6rem}
+input[type=range]{width:100%;accent-color:var(--brique)}
+.sum{color:var(--muted);line-height:1.4}
+.perf{display:grid;gap:.65rem;margin-top:.25rem}
+.perf-item{display:grid;gap:.25rem}
+.perf-item label{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;color:var(--muted)}
+.perf-item label b{color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{height:.55rem;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--brique),var(--jaune));transition:width .45s cubic-bezier(.2,.7,.2,1)}
+.perf-note{font-size:.8rem;color:var(--muted);line-height:1.35;margin-top:.15rem}
+.float-devis{position:fixed;bottom:1.25rem;right:1.25rem;z-index:20;background:var(--jaune);color:#27323b;text-decoration:none;font:inherit;font-weight:800;padding:.9rem 1.4rem;border-radius:.5rem;box-shadow:0 8px 28px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.float-devis:hover{background:#fff;transform:translateY(-2px)}
+.float-devis span{display:block;font-size:.75rem;font-weight:400;opacity:.85}
+@media (max-width:560px){.float-devis{bottom:1rem;right:1rem;left:1rem;text-align:center}}
+.detail-list{display:grid;gap:.75rem;margin-top:1rem}
+.detail-list li{color:var(--muted);line-height:1.45;padding-left:1rem;border-left:3px solid var(--jaune)}
+.detail-list li b{color:var(--ink)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:.6rem 1rem;margin-top:1.25rem}
+.svc-grid li{color:var(--muted);font-size:.95rem;line-height:1.35;padding:.45rem .7rem;background:var(--panel);border:1px solid var(--line);border-radius:.35rem;border-left:3px solid var(--orange);list-style:none}
+.svc-grid li:hover{border-left-color:var(--brique);color:var(--ink)}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.25rem}
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1.25rem;margin-top:1.25rem}
+.ba-card{background:var(--panel);border:1px solid var(--line);border-radius:.5rem;overflow:hidden}
+.ba-card .ba-pair{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ba-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.ba-card .ba-lbl{display:flex;justify-content:space-between;padding:.35rem .6rem;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.ba-card .ba-lbl span:first-child{color:#c45a3a}
+.ba-card .ba-lbl span:last-child{color:#3a8a4a}
+.ba-card p{padding:.75rem 1rem 1rem;color:var(--muted);font-size:.9rem;line-height:1.4}
+.ba-card p b{color:var(--ink);display:block;margin-bottom:.25rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;overflow:hidden}
+.card p{padding:.8rem 1rem;color:var(--muted);font-size:.95rem}
+.card p b{color:var(--ink);display:block}
+@media (max-width:760px){.sim{grid-template-columns:1fr}ul.s{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){
+  h1{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{transform:translateY(.25em);opacity:0}to{transform:none;opacity:1}}
+}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.7rem clamp(1.25rem,4vw,3rem);background:var(--bg);border-bottom:1px solid var(--line)}
+nav div{display:flex;gap:.4rem;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:.55rem .9rem;border-radius:.5rem;white-space:nowrap;position:relative;transition:color .25s,background .25s,transform .25s,box-shadow .25s}
+nav a:hover{color:var(--ink);background:rgba(255,255,255,.07)}
+nav a.tab{background:var(--brique);color:#fff;font-weight:800}
+nav a::after{content:"";position:absolute;left:50%;bottom:.15rem;width:0;height:2px;background:var(--jaune);border-radius:2px;transition:width .3s cubic-bezier(.2,.7,.2,1),left .3s cubic-bezier(.2,.7,.2,1)}
+nav a:hover::after,nav a.active::after{width:55%;left:22.5%}
+nav a.tab::after{display:none}
+@media (prefers-reduced-motion:no-preference){
+  nav a{animation:tabIn .5s cubic-bezier(.2,.7,.2,1) both}
+  nav a:nth-child(1){animation-delay:.05s}nav a:nth-child(2){animation-delay:.12s}nav a:nth-child(3){animation-delay:.18s}nav a:nth-child(4){animation-delay:.24s}
+  @keyframes tabIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  .opt,.sw{transition:transform .2s,background .25s,border-color .25s,box-shadow .25s}
+  .opt:hover,.sw:hover{transform:translateY(-2px)}
+  .opt[aria-pressed="true"],.sw[aria-pressed="true"]{box-shadow:0 4px 16px rgba(242,180,65,.28)}
+  .ctl{animation:panelIn .55s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes panelIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
+html{scroll-padding-top:4.5rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.25rem}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:.6rem;padding:1.25rem}
+.box h3{font-size:1.15rem;margin-bottom:.5rem}
+.box p,.box li{color:var(--muted);line-height:1.45}
+.box ul{padding-left:1.1rem;display:grid;gap:.4rem}
+ol.steps{list-style:none;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.25rem}
+ol.steps li{counter-increment:s;border-top:3px solid var(--brique);padding-top:.8rem;color:var(--muted);line-height:1.45}
+ol.steps li::before{content:counter(s);display:block;font-size:2rem;font-weight:800;color:var(--ink);line-height:1}
+ol.steps b{display:block;color:var(--ink);margin:.3rem 0}
+h3.sec{font-size:1.5rem;margin:2.5rem 0 1rem}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;max-width:56rem}
+.form label{display:grid;gap:.35rem;color:var(--muted)}
+.form .wide{grid-column:1/-1}
+.form input,.form select,.form textarea{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:.4rem;padding:.75rem}
+.form textarea{min-height:8rem;resize:vertical}
+.note{color:var(--muted);font-size:.9rem;line-height:1.4}
+.end{padding:2rem clamp(1.25rem,4vw,3rem);border-top:1px solid var(--line);color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.end a{color:var(--ink)}
+.card img{display:block;width:100%;height:auto}
+
+:root{--jaune:#ff6b2c;--bleu:#3b6ea5}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink)}
+.logo .mk{width:2.6rem;height:2.6rem;flex:none}
+.logo span{display:grid;line-height:1.1}
+.logo b{font-size:1.1rem}
+.logo small{color:var(--muted);font-size:.8rem}
+.logo.big .mk{width:4rem;height:4rem}
+.logo.big b{font-size:1.5rem}
+.logo.big small{font-size:.95rem}
+nav a.tab{background:var(--jaune);color:#27323b}
+nav a.tab:hover{color:#27323b;background:#fff}
+h2::after{content:"";display:block;width:4rem;height:.35rem;background:var(--jaune);margin-top:.6rem;border-radius:2px}
+h1 span{color:var(--jaune)}
+ul.s li:nth-child(2)::before{background:var(--jaune)}
+ul.s li:nth-child(3)::before{background:#8fb2e0}
+ul.s li:nth-child(4)::before{background:#6fb3a8}
+.strip{height:3rem;margin-top:1.75rem;max-width:36rem;border-radius:.3rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cpath d='M0 12a12 12 0 0 0 24 0a12 12 0 0 0 24 0M-12 24a12 12 0 0 0 24 0a12 12 0 0 0 24 0a12 12 0 0 0 24 0' fill='none' stroke='%23000' stroke-opacity='.2' stroke-width='2'/%3E%3C/svg%3E"),linear-gradient(90deg,#e85d2c,#ff6b2c 45%,#ffb38a 75%,#ffffff)}
+.box,.card{border-top:4px solid var(--c,#d2573a)}
+.cols .box:nth-child(2),.gal .card:nth-child(2),.gal .card:nth-child(5){--c:var(--jaune)}
+.cols .box:nth-child(3),.gal .card:nth-child(3),.gal .card:nth-child(6){--c:#6fb3a8}
+.cols .box:nth-child(4){--c:#8fb2e0}
+ol.steps li{border-top-color:var(--c,#d2573a)}
+ol.steps li:nth-child(2){--c:var(--jaune)}
+ol.steps li:nth-child(3){--c:#6fb3a8}
+ol.steps li:nth-child(4){--c:#8fb2e0}
+#metier{--bg:#fff5ef;--panel:#ffffff;--line:#f0d5c4;--muted:#6a5a50;background:var(--bg)}
+#formulaire{--bg:#ffffff;--ink:#1e2429;--muted:#5c6770;--panel:#faf8f5;--line:#e8e0d6;background:var(--bg);color:var(--ink)}
+#formulaire h2::after{background:var(--brique)}
+.end{background:var(--brique);color:#fff;border:0}
+.contact-hero{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:1.5rem;position:relative;z-index:1}
+.contact-hero a{color:var(--ink);text-decoration:none;font-weight:800;font-size:1.05rem;display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;background:#fff;border:1px solid var(--line);border-radius:.4rem;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.contact-hero a:hover{border-color:var(--orange);color:var(--orange)}
+.contact-hero .tel{background:var(--orange);color:#fff;border-color:var(--orange)}
+.contact-hero .tel:hover{background:var(--brique);color:#fff;border-color:var(--brique)}
+nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{background:var(--bg)}
+a.cta,button.cta{background:var(--orange);color:#fff}
+a.cta:hover{background:var(--brique);color:#fff}
+.opt[aria-pressed="true"]{background:var(--orange);color:#fff;border-color:var(--orange)}
+#simulateur{--bg:#fff;--ink:#8a6100;--muted:#8f6a10;--panel:#fff;--line:#e6cf94;--gold:#b8860b;background:var(--bg);color:var(--ink)}
+#simulateur h2::after{background:var(--orange)}
+#simulateur .opt[aria-pressed="true"]{background:#9a6a00;color:#fff;border-color:#9a6a00}
+.svc-more{margin-top:1.25rem;text-align:center}
+.svc-more .cta{background:var(--orange);color:#fff}
+.svc-more .cta:hover{background:var(--brique)}
+.svc-grid li.svc-hidden{display:none}
+.svc-grid.is-open li.svc-hidden{display:block}
+.float-devis{background:var(--orange);color:#fff}
+.float-devis:hover{background:var(--brique);color:#fff}
+nav a.tab{background:var(--orange);color:#fff}
+nav a.tab:hover{background:var(--brique);color:#fff}
+.end a{color:#fff}
+@media (max-width:560px){nav .logo small{display:none}nav .logo b{font-size:1rem}}
+</style>
+<style>
+#simulateur{overflow-x:clip}
+.sim>*,.ctl,.ctl>*,.view{min-width:0;max-width:100%}
+.ctl{overflow-wrap:anywhere}
+.ctl input[type=range]{width:100%;max-width:100%}
+.vtools{position:absolute;left:.5rem;top:.5rem;display:flex;flex-wrap:wrap;gap:.3rem;z-index:3;max-width:calc(100% - 4rem)}
+.vt{font:inherit;font-size:.72rem;font-weight:700;line-height:1;padding:.38rem .55rem;border-radius:.35rem;border:1px solid rgba(255,255,255,.25);background:rgba(39,50,59,.85);color:#f6efe6;cursor:pointer;backdrop-filter:blur(6px);white-space:nowrap}
+.vt:hover,.vt[aria-pressed="true"]{background:var(--orange,#ff6b2c);border-color:var(--orange,#ff6b2c);color:#fff}
+.vlabels{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.vl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:.7rem;font-weight:700;line-height:1;padding:.22rem .4rem;border-radius:.3rem;background:rgba(20,28,34,.85);color:#fff;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.vl.tag{background:rgba(242,180,65,.95);color:#27323b}
+.vcompass{position:absolute;right:.75rem;top:.5rem;width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(39,50,59,.8);z-index:2;pointer-events:none}
+.vcompass .ring{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-start}
+.vcompass b{font-size:.68rem;color:#ff6b2c;line-height:1;margin-top:.12rem}
+.vhint{position:absolute;left:.5rem;bottom:.5rem;max-width:calc(100% - 4rem);font-size:.75rem;font-weight:600;padding:.3rem .5rem;border-radius:.3rem;background:rgba(20,28,34,.85);color:#fff;z-index:2;pointer-events:none}
+.vhint:empty{display:none}
+.met{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3rem .75rem;font-size:.88rem;margin:0}
+.met dt{color:var(--muted)}
+.met dd{margin:0;font-weight:800;text-align:right}
+.view:focus-visible{outline:2px solid var(--jaune,#f2b441);outline-offset:2px}
+</style>
+<style>
+/* simulateur : fond blanc, écriture dorée */
+#simulateur h2,#simulateur h3,#simulateur .sum,#simulateur .opt{color:var(--ink)}
+#simulateur h2::after{background:#c9971c}
+#simulateur .opt{border-color:#e6cf94;background:#fff}
+#simulateur .opt:hover{background:#fbf3dc}
+#simulateur input[type=range]{accent-color:#b8860b}
+#simulateur a.cta{background:#9a6a00;color:#fff}
+#simulateur a.cta:hover{background:#7a5400}
+#simulateur .view{background:#fff;border-color:#e6cf94}
+.vt,.zoom-ctl button{background:rgba(255,255,255,.94);color:#8a6100;border-color:#d4af37}
+.vt:hover,.vt[aria-pressed="true"],.zoom-ctl button:hover{background:#9a6a00;border-color:#9a6a00;color:#fff}
+.vl,.vhint{background:rgba(255,255,255,.95);color:#8a6100;border:1px solid #d4af37}
+.vl.tag{background:#b8860b;color:#fff;border-color:#b8860b}
+.vcompass{background:rgba(255,255,255,.92);border-color:#d4af37}
+.vcompass b{color:#9a6a00}
+/* repli / flèche */
+.fold-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,1,.36,1)}
+.fold.open>.fold-b{grid-template-rows:1fr}
+.fold-i{overflow:hidden;min-height:0}
+.fold-i .more{margin-top:.6rem;color:var(--muted);line-height:1.45}
+.arrow,.fold-h svg{transition:transform .45s cubic-bezier(.22,1,.36,1),background .25s,color .25s}
+.arrow{display:flex;align-items:center;justify-content:center;margin:.6rem auto 0;width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--brique);cursor:pointer;padding:0}
+.arrow:hover{background:var(--brique);color:#fff}
+.fold.open>.arrow{transform:rotate(180deg)}
+.folds{display:grid;gap:.6rem;margin-top:1rem}
+.folds .fold{border:1px solid var(--line);border-radius:.5rem;padding:0 1rem;background:var(--panel)}
+.fold-h{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 0;font-weight:800;font-size:1.05rem;cursor:pointer;color:var(--ink)}
+.fold-h:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.fold-h[aria-expanded="true"] svg{transform:rotate(180deg)}
+.folds .fold-i{padding-bottom:0}
+.folds .fold.open .fold-i{padding-bottom:1rem}
+/* menu */
+nav>div a:not(.tab){display:none}
+nav>div{display:flex;align-items:center;gap:.6rem}
+.burger{width:2.8rem;height:2.8rem;border-radius:.5rem;border:1px solid #d4af37;background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.28rem;cursor:pointer;padding:0}
+.burger i{display:block;width:1.3rem;height:2px;background:#9a6a00;border-radius:2px;transition:transform .4s cubic-bezier(.22,1,.36,1),width .4s}
+.burger:hover i:nth-child(2){width:.8rem}
+.backdrop{position:fixed;inset:0;background:rgba(40,30,0,.35);opacity:0;visibility:hidden;transition:opacity .5s ease,visibility 0s .5s;z-index:59}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(21rem,88vw);background:#fff;color:#8a6100;z-index:60;display:flex;flex-direction:column;gap:.25rem;padding:4.5rem 1.5rem 1.5rem;transform:translateX(104%);visibility:hidden;transition:transform .55s cubic-bezier(.22,1,.36,1),visibility 0s .55s;box-shadow:-18px 0 40px rgba(138,97,0,.18);border-left:1px solid #e6cf94;overflow-y:auto}
+.drawer a{color:#8a6100;text-decoration:none;font-weight:800;font-size:1.25rem;padding:.7rem .25rem;border-bottom:1px solid #f0e2b8;opacity:0;transform:translateX(22px);transition:opacity .5s ease,transform .6s cubic-bezier(.22,1,.36,1),color .2s;transition-delay:0s}
+.drawer a:hover{color:#5c4000}
+.drawer .dcta{margin-top:1rem;background:#9a6a00;color:#fff;border-radius:.5rem;text-align:center;border:0}
+.drawer .dcta:hover{background:#7a5400;color:#fff}
+.drawer .dtel{border:0;font-size:1rem;text-align:center}
+.dclose{position:absolute;top:.9rem;right:1rem;width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid #d4af37;background:#fff;color:#8a6100;font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.dclose:hover{transform:rotate(90deg)}
+.menu-open{overflow:hidden}
+.menu-open .backdrop{opacity:1;visibility:visible;transition:opacity .5s ease}
+.menu-open .drawer{transform:none;visibility:visible;transition:transform .55s cubic-bezier(.22,1,.36,1),visibility 0s}
+.menu-open .drawer a{opacity:1;transform:none;transition-delay:calc(var(--i)*60ms + 180ms)}
+/* avis en arrière-plan, de droite à gauche */
+.cover>*{position:relative;z-index:1}
+.cover>.rv-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;display:flex;flex-direction:column;justify-content:space-evenly;padding:4rem 0 1rem;opacity:.3}
+.rv-row{display:flex;width:max-content;gap:1rem;animation:rvmove var(--d,60s) linear infinite}
+@keyframes rvmove{to{transform:translateX(-50%)}}
+.rv-card{width:17rem;flex:none;background:#fff;border:1px solid #e6cf94;border-radius:.6rem;padding:.65rem .85rem;color:#8a6100;box-shadow:0 4px 14px rgba(138,97,0,.1)}
+.rv-card .st{color:#c9971c;letter-spacing:.12em;font-size:.9rem;line-height:1}
+.rv-card p{font-size:.82rem;line-height:1.3;margin:.3rem 0}
+.rv-card small{font-weight:800;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}
+@media (prefers-reduced-motion:reduce){.rv-row{animation:none}.drawer,.backdrop,.drawer a,.fold-b{transition-duration:.01s;transition-delay:0s}}
+</style>
+<style>.pg[hidden]{display:none!important}.pg{animation:pgin .45s ease both}@keyframes pgin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}</style>
+<style>
+.burger{position:fixed;top:calc(env(safe-area-inset-top,0px) + .7rem);left:.75rem;z-index:61;width:auto;height:auto;padding:.55rem .85rem;display:grid;grid-template-columns:1.1rem auto;grid-template-rows:repeat(3,2px);gap:.3rem .55rem;align-content:center;align-items:center;border-radius:.6rem;background:#fff;border:1px solid #d4af37;box-shadow:0 4px 14px rgba(138,97,0,.15);cursor:pointer}
+.burger i:nth-child(1){grid-column:1;grid-row:1}.burger i:nth-child(2){grid-column:1;grid-row:2}.burger i:nth-child(3){grid-column:1;grid-row:3}
+.burger::after{content:"Menu";grid-column:2;grid-row:1 / span 3;font-weight:800;font-size:.95rem;color:#8a6100;line-height:1}
+nav .logo{margin-left:7.5rem}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 64 64">
+  <defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e85d2c"/><stop offset="1" stop-color="#ff8a4a"/></linearGradient></defs>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="url(#lgG)" stroke-width="2.5"/>
+  <polygon points="10,36 32,12 54,36 46,36 32,22 18,36" fill="#e85d2c"/>
+  <polygon points="18,42 32,28 46,42 40,42 32,34 24,42" fill="#ff8a4a"/>
+  <rect x="29" y="8" width="6" height="10" rx="1" fill="#1e2429"/>
+  <text x="32" y="58" text-anchor="middle" font-family="Bricolage Grotesque,Arial,sans-serif" font-weight="800" font-size="14" fill="currentColor">GL</text>
+</symbol></svg>
+<nav aria-label="Navigation" id="top"><a class="logo" href="index.html" aria-label="GL Couvreur, accueil"><svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><use href="#lg"/></svg><span><b>GL Couvreur</b><small>Lille et environs</small></span></a><div><a href="metier.html">Le métier</a><a href="services.html">Services</a><a href="simulateur.html">Simulateur</a><a href="avant-apres.html">Avant/Après</a><a href="realisations.html">Réalisations</a><a class="tab" href="devis.html">Demande de devis</a><button type="button" class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i><i></i></button></div></nav>
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true"><button type="button" class="dclose" id="dclose" aria-label="Fermer le menu">×</button><a href="index.html" style="--i:0">Accueil</a><a href="metier.html" style="--i:1">Le métier</a><a href="services.html" style="--i:2">Services</a><a href="simulateur.html" style="--i:3">Simulateur 3D</a><a href="avant-apres.html" style="--i:4">Avant / Après</a><a href="realisations.html" style="--i:5">Réalisations</a><a href="devis.html" class="dcta" style="--i:6">Demande de devis</a><a href="tel:+33782134662" class="dtel" style="--i:7">07 82 13 46 62</a></aside>
+<main id="app">
+<div class="pg" data-pg="top"><div class="cover">
+  
+  <header><a class="logo big" href="#top" aria-label="GL Couvreur, accueil"><svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><use href="#lg"/></svg><span><b>GL Couvreur</b><small>Lille et environs</small></span></a></header>
+  <main>
+    <h1>GL<br>Couverture <span>Lille</span></h1>
+    <p class="lead">Toiture soignée, chantier propre, devis clair. Couvreur à Lille et dans le Nord.</p>
+    <div class="contact-hero">
+      <a class="tel" href="tel:+33782134662">07 82 13 46 62</a>
+      <a href="mailto:GL.couverture.lille@gmail.com">GL.couverture.lille@gmail.com</a>
+    </div>
+    <div class="strip" aria-hidden="true"></div>
+  </main>
+  <footer>
+    <ul class="s">
+      <li>Réparation de toiture</li>
+      <li>Rénovation de couverture</li>
+      <li>Zinguerie et gouttières</li>
+      <li>Démoussage et nettoyage</li>
+    </ul>
+    <div>
+      <a class="cta" href="#simulateur">Essayer le simulateur</a>
+      <a class="mail" href="mailto:GL.couverture.lille@gmail.com">GL.couverture.lille@gmail.com</a>
+      <a class="mail" href="tel:+33782134662" style="margin-top:.35rem">07 82 13 46 62</a>
+    </div>
+  </footer>
+</div>
+
+
+</div>
+<div class="pg" data-pg="metier" hidden><section id="metier">
+  <h2>Le métier de couvreur</h2>
+  <p class="sub">Nous posons, réparons et entretenons les toitures à Lille et dans le Nord.</p>
+  <div class="cols">
+    <div class="box fold"><h3>Réparation de toiture</h3><p>Fuites, tuiles cassées, étanchéité.</p><div class="fold-b"><div class="fold-i"><p class="more">Remplacement des tuiles ou ardoises cassées, recherche de l’origine d’une fuite, reprise des points d’étanchéité autour des cheminées, velux et rives. Intervention rapide pour limiter les dégâts dans les combles et les plafonds.</p></div></div><button type="button" class="arrow" aria-expanded="false" aria-label="Détailler : Réparation de toiture"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    <div class="box fold"><h3>Rénovation de couverture</h3><p>Dépose, charpente, couverture neuve.</p><div class="fold-b"><div class="fold-i"><p class="more">Dépose de l’ancienne couverture, contrôle de la charpente et des liteaux, pose d’un écran de sous-toiture, puis pose d’une couverture neuve en ardoise, tuile, zinc, bac acier ou autre matériau adapté au climat du Nord.</p></div></div><button type="button" class="arrow" aria-expanded="false" aria-label="Détailler : Rénovation de couverture"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    <div class="box fold"><h3>Zinguerie et gouttières</h3><p>Gouttières, descentes, noues, solins.</p><div class="fold-b"><div class="fold-i"><p class="more">Gouttières, descentes d’eau, noues, solins et habillages en zinc. Une zinguerie bien réalisée évacue l’eau loin des murs et protège les façades contre les infiltrations et les salissures.</p></div></div><button type="button" class="arrow" aria-expanded="false" aria-label="Détailler : Zinguerie et gouttières"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    <div class="box fold"><h3>Démoussage et nettoyage</h3><p>Nettoyage et traitement anti-mousse.</p><div class="fold-b"><div class="fold-i"><p class="more">Nettoyage de la toiture, traitement contre la mousse et les lichens, contrôle de l’état des éléments de couverture. Un entretien régulier prolonge la durée de vie du toit et limite les risques de fuite.</p></div></div><button type="button" class="arrow" aria-expanded="false" aria-label="Détailler : Démoussage et nettoyage"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  </div>
+  <div class="folds">
+    <div class="fold"><button type="button" class="fold-h" aria-expanded="false">Quand appeler un couvreur ?<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="fold-b"><div class="fold-i"><ul class="detail-list">
+      <li><b>Humidité au plafond</b> — tache, auréole ou infiltration d’eau : signe d’une étanchéité à reprendre.</li>
+      <li><b>Tuiles ou ardoises abîmées</b> — cassées, déplacées ou manquantes après le vent ou le gel.</li>
+      <li><b>Mousse et lichens</b> — ils retiennent l’humidité et accélèrent le vieillissement de la couverture.</li>
+      <li><b>Gouttière qui fuit</b> — débordement, joint usé ou descente bouchée à traiter sans attendre.</li>
+      <li><b>Après une tempête</b> — contrôle recommandé pour repérer les éléments soulevés ou endommagés.</li>
+    </ul></div></div></div>
+    <div class="fold"><button type="button" class="fold-h" aria-expanded="false">Choisir le bon matériau<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="fold-b"><div class="fold-i"><ul class="detail-list">
+        <li><b>Ardoise</b> — très durable, esthétique classique, excellente étanchéité sur toits en pente.</li>
+        <li><b>Tuile canal ou plate</b> — adaptée au Nord, bonne isolation, large choix de teintes.</li>
+        <li><b>Zinc</b> — formes complexes, toits peu inclinés, joints debout, longévité élevée.</li>
+        <li><b>Bac acier</b> — léger, rapide à poser, bon rapport qualité / prix.</li>
+        <li><b>Toit plat</b> — membrane EPDM, gravier ou végétalisé selon l’usage et l’isolation souhaitée.</li>
+      </ul></div></div></div>
+    <div class="fold"><button type="button" class="fold-h" aria-expanded="false">Comment se passe un chantier ?<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="fold-b"><div class="fold-i"><ol class="steps">
+    <li><b>Visite et diagnostic</b>Nous examinons la toiture, la charpente et les points sensibles, puis nous écoutons votre projet et vos contraintes.</li>
+    <li><b>Devis détaillé</b>Vous recevez un devis écrit : travaux, matériaux, quantités, délais et garanties. Aucun engagement avant validation.</li>
+    <li><b>Chantier</b>Protection des abords, échafaudage si besoin, dépose si nécessaire, pose de la sous-toiture puis de la nouvelle couverture.</li>
+    <li><b>Finitions et nettoyage</b>Contrôle final de l’étanchéité, rangement et nettoyage du chantier. Remise des documents et conseils d’entretien.</li>
+  </ol></div></div></div>
+  </div>
+</section></div>
+<div class="pg" data-pg="services" hidden><section id="services">
+  <h2>Nos services</h2>
+  <ul class="svc-grid" id="svc-list"></ul>
+  <div class="svc-more"><button type="button" class="cta" id="svc-more-btn">Voir plus de services</button></div>
+</section></div>
+<div class="pg" data-pg="simulateur" hidden><section id="simulateur">
+  <h2>Simulateur de toiture</h2>
+  <div class="sim">
+    <div class="view" id="view" role="group" tabindex="0" aria-label="Maison en 3D : glisser pour tourner, molette pour zoomer, flèches du clavier pour naviguer">
+      <div class="zoom-ctl"><button type="button" id="z-in" aria-label="Zoom avant">+</button><button type="button" id="z-out" aria-label="Zoom arrière">−</button><button type="button" id="z-rst" aria-label="Réinitialiser le zoom" style="font-size:.75rem">1:1</button></div>
+      <div class="vlabels" id="vlabels" aria-hidden="true"></div>
+    </div>
+    <div class="ctl">
+      <div><h3>Forme du toit</h3><div class="row" id="shapes"></div></div>
+      <div><h3>Matériau</h3><div class="row" id="mats"></div></div>
+      <div><h3>Couleur de toiture</h3><div class="row" id="cols"></div></div>
+      <div><h3>Matière de façade</h3><div class="row" id="wst"></div></div>
+      <div><h3>Couleur de façade</h3><div class="row" id="walls"></div></div>
+      <div><h3>Options</h3><div class="row" id="opts"></div></div>
+      <div><h3>Pente</h3><input type="range" id="pitch" min="70" max="180" value="120" aria-label="Pente de la toiture"></div>
+      <div class="row"><button class="opt" id="rot" aria-pressed="true">Rotation auto</button><button class="opt" id="fs" aria-pressed="false">Plein écran</button></div>
+      <p class="sum" id="sum"></p>
+      <a class="cta" id="devis" href="mailto:GL.couverture.lille@gmail.com?subject=Demande%20de%20devis%20-%20toiture">Demander ce devis</a>
+    </div>
+  </div>
+  </section></div>
+<div class="pg" data-pg="avant-apres" hidden><section id="avant-apres">
+  <h2>Avant / Après nettoyage</h2>
+  <p class="sub">Démoussage et nettoyage de toiture : retrouvez une couverture saine, plus esthétique et plus durable.</p>
+  <div class="ba-grid" id="ba-grid"></div>
+</section></div>
+<div class="pg" data-pg="realisations" hidden><section id="realisations">
+  <h2>Réalisations</h2>
+  <p class="sub">Photos réelles de couvertures : ardoise, tuile, zinc et détails de pose. Inspiration pour votre projet à Lille et alentours.</p>
+  <div class="gal" id="gal"></div>
+</section></div>
+<div class="pg" data-pg="formulaire" hidden><section id="formulaire">
+  <h2>Demande de devis</h2>
+  <p class="sub">Décrivez votre projet en quelques lignes. Le bouton prépare un e-mail déjà rempli pour GL Couverture Lille. Réponse sous 48 h ouvrables, visite sur place si besoin pour un devis précis.</p>
+  <div class="form">
+    <label>Nom<input id="f-nom" autocomplete="name" placeholder="Votre nom"></label>
+    <label>Téléphone<input id="f-tel" type="tel" autocomplete="tel" placeholder="06 …"></label>
+    <label>E-mail<input id="f-mail" type="email" autocomplete="email" placeholder="vous@exemple.fr"></label>
+    <label>Ville ou code postal<input id="f-ville" autocomplete="postal-code" placeholder="Lille, 59000…"></label>
+    <label class="wide">Type de travaux<select id="f-type">
+      <option>Réparation de toiture</option><option>Rénovation de couverture</option><option>Zinguerie et gouttières</option><option>Démoussage et nettoyage</option><option>Autre demande</option></select></label>
+    <label class="wide">Votre projet<textarea id="msg" placeholder="Type de maison (pavillon, mitoyen…), problème rencontré, matériau souhaité, accès au toit…"></textarea></label>
+    <div class="wide"><a class="cta" id="send" href="mailto:GL.couverture.lille@gmail.com">Envoyer la demande</a>
+    <p class="note" id="st" style="margin-top:.8rem">Si votre messagerie ne s’ouvre pas : GL.couverture.lille@gmail.com · 07 82 13 46 62. Les choix du simulateur sont repris dans le message.</p></div>
+  </div>
+</section></div>
+</main>
+<div class="end"><span>GL Couverture Lille · Lille et environs</span><span><a href="tel:+33782134662">07 82 13 46 62</a> · <a href="mailto:GL.couverture.lille@gmail.com">GL.couverture.lille@gmail.com</a></span></div>
+<a class="float-devis" href="#formulaire" id="float-devis">Demande de devis<span>Réponse sous 48 h</span></a>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var MATS={
+    tuile:{n:'Tuile canal',f:'p',c:[
+      ['Terre cuite','#c45a32'],['Rouge flammé','#a84830'],['Brun vieilli','#7a5040'],['Anthracite','#3a3e42'],
+      ['Ocre','#c89848'],['Rose','#b87060'],['Vert','#5a6c4a'],['Noir','#282a2c'],['Jaune paille','#c4a060'],['Cuivré','#b06840']
+    ]},
+    tromane:{n:'Tuile romane',f:'p',c:[
+      ['Rouge méditerranée','#c05030'],['Brun provençal','#8a5a40'],['Sable','#c4a070'],['Anthracite','#3c4044'],
+      ['Terre cuite','#b85838'],['Vieilli','#9a6048']
+    ]},
+    tplate:{n:'Tuile plate',f:'p',c:[
+      ['Rouge Bourgogne','#b04830'],['Brun nuancé','#6e4c3a'],['Ardoisé','#4a5058'],['Terre cuite claire','#c87048'],
+      ['Gris','#4a4e52'],['Beige','#b09870'],['Noir','#2a2c30'],['Vert mousse','#4a5c48']
+    ]},
+    tmeca:{n:'Tuile mécanique',f:'p',c:[
+      ['Rouge','#b05032'],['Brun','#7a5440'],['Anthracite','#3a3e42'],['Gris','#6a6e72'],
+      ['Noir','#2a2c30'],['Ocre','#c09048'],['Flammé','#a84838']
+    ]},
+    tembo:{n:'Tuile à emboîtement',f:'p',c:[
+      ['Rouge','#b04a32'],['Brun','#7a503c'],['Gris ardoise','#4e545a'],['Noir','#2c2e32'],
+      ['Terre cuite','#c45a38'],['Beige','#b8a080']
+    ]},
+    ardoise:{n:'Ardoise',f:'p',c:[
+      ['Naturelle','#5c656e'],['Bleue','#4a5868'],['Noire','#2a2e34'],['Verte','#4a5c54'],['Grise','#7a848c'],['Violet','#5a4e5c']
+    ]},
+    bardeau:{n:'Shingle / bardeaux',f:'p',c:[
+      ['Noir','#2e3034'],['Brun','#5c4a3a'],['Gris','#6e7276'],['Vert','#4a5c48'],
+      ['Rouge','#8c3c2c'],['Cuivré','#b86030'],['Beige','#c8bca8'],['Anthracite','#3c4044'],['Châtaigne','#6a4e36'],['Sable','#b8a080']
+    ]},
+    zinc:{n:'Zinc',f:'a',c:[
+      ['Naturel','#a8b0b6'],['Quartz','#7a8288'],['Patiné','#7a9888'],['Cuivre','#b87840'],['Anthracite','#4e545a'],['Noir','#2e3236']
+    ]},
+    bac:{n:'Bac acier',f:'a',c:[
+      ['Anthracite','#4e545a'],['Rouge','#8c3c2c'],['Vert','#4a6450'],['Blanc','#b8bec2'],['Bleu','#3e5a78'],['Noir','#2c2e32']
+    ]},
+    membrane:{n:'Membrane',f:'f',c:[['Gris','#5e6468'],['Noir','#2a2c30'],['Gris clair','#9ea2a6'],['Blanc','#e8e8e6']]},
+    vegetal:{n:'Végétalisé',f:'f',c:[['Sedum vert','#6a8c4e'],['Sedum rouge','#8a6c4a'],['Prairie','#7a9a56'],['Vert intense','#4a7a3a']]}
+  };
+  var WALLS=[['Blanc cassé','#f4efe6'],['Blanc','#fafafa'],['Crème','#efe6d4'],['Beige','#e6d6bc'],['Pierre','#d8d0c4'],['Gris','#d0cec8'],['Ocre','#d4b47c'],['Brique','#b04a36'],['Rose','#d4b0a6'],['Anthracite','#4a4e52']];
+  var SH={g2:'2 pans',g4:'4 pans',g1:'1 pan',pl:'Plat'};
+  var S={m:'tuile',sh:'g2',c:0,w:0,r:2,et:false,ga:false,ch:true,lu:false,vx:false,so:false,sf:false,ws:'crepi',dm:false,lg:false,gr:false,fr:false,wf:false,dc:true,sd:true,hr:11};
+  var view=document.getElementById('view'),ok=false,ren,sc,cam,grp,tgt,az=.7,el=.35,dist=16,auto=!matchMedia('(prefers-reduced-motion: reduce)').matches,drag=false,vis=true;
+  var roofMats=[],revealU={value:1},poseAnim=null,doPose=false,poseN=60,BW=7.5,BD=5.5,K=1,lastK=0,DM=32,gndRef,sunRef,fitT,tileMeshes=[];
+  var WST={crepi:'Crépi',brique:'Brique',pierre:'Pierre',bardage:'Bardage bois'};
+
+  function okm(k){return S.sh==='pl'?MATS[k].f!=='p':MATS[k].f!=='f'}
+  function std(c,r,m){return new THREE.MeshStandardMaterial({color:c,roughness:r==null?.85:r,metalness:m||0})}
+  function add(g,m,x,y,z,rx,ry,rz){var o=new THREE.Mesh(g,m);o.position.set(x,y,z);if(rx)o.rotation.x=rx;if(ry)o.rotation.y=ry;if(rz)o.rotation.z=rz;o.castShadow=o.receiveShadow=true;grp.add(o);return o}
+  function box(w,h,d,m,x,y,z,rx,ry){return add(new THREE.BoxGeometry(w,h,d),m,x,y,z,rx,ry)}
+
+  function roofMat(col){
+    var SZ=512,c=document.createElement('canvas');c.width=c.height=SZ;var g=c.getContext('2d'),x,y,i,j,type=S.m;
+    g.fillStyle=col;g.fillRect(0,0,SZ,SZ);
+    if(type==='tuile'||type==='tromane'){
+      for(j=0;j<16;j++)for(i=-1;i<18;i++){
+        x=i*32-(j%2?16:0);y=j*32;
+        g.fillStyle=col;g.fillRect(x,y,32,32);
+        g.fillStyle='rgba(0,0,0,.18)';g.beginPath();g.moveTo(x,y);g.lineTo(x+32,y);g.lineTo(x+32,y+13);g.arc(x+16,y+13,16,0,Math.PI);g.closePath();g.fill();
+        g.fillStyle='rgba(255,255,255,.22)';g.fillRect(x+2,y+1,28,3);
+        g.strokeStyle='rgba(0,0,0,.35)';g.lineWidth=1.2;g.beginPath();g.arc(x+16,y+13,15,0,Math.PI);g.stroke();
+        g.fillStyle='rgba(0,0,0,.1)';g.fillRect(x+14,y,4,12);
+      }
+    }else if(type==='tplate'||type==='tmeca'||type==='tembo'){
+      var tw=type==='tplate'?16:20,th=type==='tplate'?16:14;
+      for(j=0;j<Math.ceil(SZ/th)+1;j++)for(i=-1;i<Math.ceil(SZ/tw)+2;i++){
+        x=i*tw-(j%2?(tw/2):0);y=j*th;
+        g.fillStyle=col;g.fillRect(x,y,tw,th);
+        if(type==='tplate'){
+          g.fillStyle='rgba(0,0,0,.12)';g.beginPath();g.moveTo(x,y);g.lineTo(x+tw,y);g.lineTo(x+tw,y+th*.7);g.quadraticCurveTo(x+tw,y+th,x+tw*.7,y+th);g.lineTo(x+tw*.3,y+th);g.quadraticCurveTo(x,y+th,x,y+th*.7);g.closePath();g.fill();
+        }else{
+          g.fillStyle='rgba(0,0,0,.1)';g.fillRect(x,y,tw,th);
+          g.fillStyle='rgba(255,255,255,.08)';g.fillRect(x+1,y+1,tw-2,2);
+        }
+        g.strokeStyle='rgba(0,0,0,.4)';g.lineWidth=1;g.strokeRect(x+.5,y+.5,tw-1,th-1);
+        if(type==='tmeca'){g.fillStyle='rgba(0,0,0,.2)';g.fillRect(x+tw*.4,y,tw*.2,th*.5)}
+        g.fillStyle='rgba(255,255,255,.15)';g.fillRect(x+1,y+1,tw-2,2);
+      }
+    }else if(type==='ardoise'){
+      for(j=0;j<16;j++)for(i=-1;i<18;i++){
+        x=i*32-(j%2?16:0);y=j*32;
+        g.fillStyle=col;g.fillRect(x,y,32,32);
+        g.fillStyle='rgba(255,255,255,.16)';g.fillRect(x+1,y+1,30,3);
+        g.fillStyle='rgba(0,0,0,.18)';g.fillRect(x+1,y+27,30,4);
+        g.strokeStyle='rgba(0,0,0,.4)';g.lineWidth=1;g.strokeRect(x+.5,y+.5,31,31);
+        for(var n=0;n<2;n++){g.fillStyle='rgba(0,0,0,.06)';g.fillRect(x+4+Math.random()*20,y+6+Math.random()*16,1,6+Math.random()*8)}
+      }
+    }else if(type==='bardeau'){
+      for(j=0;j<32;j++)for(i=-1;i<18;i++){
+        x=i*32-(j%2?16:0);y=j*16;
+        g.fillStyle=col;g.fillRect(x,y,32,16);
+        g.fillStyle='rgba(0,0,0,.08)';g.fillRect(x,y,32,16);
+        g.strokeStyle='rgba(0,0,0,.4)';g.lineWidth=1;g.strokeRect(x+.5,y+.5,31,15);
+        g.beginPath();g.moveTo(x+16,y+4);g.lineTo(x+16,y+16);g.stroke();
+        g.fillStyle='rgba(255,255,255,.12)';g.fillRect(x+2,y+1,28,2);
+      }
+    }else if(type==='zinc'){
+      for(x=0;x<SZ;x+=64){
+        g.fillStyle=col;g.fillRect(x,0,64,SZ);
+        g.fillStyle='rgba(255,255,255,.2)';g.fillRect(x+2,0,3,SZ);
+        g.fillStyle='rgba(0,0,0,.3)';g.fillRect(x,0,3,SZ);
+        g.fillStyle='rgba(0,0,0,.12)';g.fillRect(x+60,0,4,SZ);
+      }
+    }else if(type==='bac'){
+      for(x=0;x<SZ;x+=32){
+        g.fillStyle=col;g.fillRect(x,0,32,SZ);
+        g.fillStyle='rgba(255,255,255,.22)';g.fillRect(x+3,0,6,SZ);
+        g.fillStyle='rgba(0,0,0,.28)';g.fillRect(x+12,0,5,SZ);
+        g.fillStyle='rgba(0,0,0,.12)';g.fillRect(x+26,0,4,SZ);
+      }
+    }else if(type==='vegetal'){
+      for(i=0;i<8000;i++){g.fillStyle=Math.random()<.9?'hsla('+(70+Math.random()*50)+','+(30+Math.random()*25)+'%,'+(25+Math.random()*30)+'%,.7)':['#d9455f','#f2c14e','#e8e8e8'][i%3];g.beginPath();g.arc(Math.random()*SZ,Math.random()*SZ,1+Math.random()*3,0,6.3);g.fill()}
+    }else{
+      for(i=0;i<2000;i++){g.fillStyle='rgba(0,0,0,'+(Math.random()*.06)+')';g.fillRect(Math.random()*SZ,Math.random()*SZ,2,2)}
+    }
+    var t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;
+    t.repeat.set(type==='zinc'||type==='bac'?4:5,type==='zinc'||type==='bac'?4:5);
+    t.encoding=THREE.sRGBEncoding;
+    var metal=type==='zinc'||type==='bac';
+    var mat=new THREE.MeshStandardMaterial({map:t,color:0xffffff,roughness:metal?.4:.82,metalness:metal?.35:0});
+    // pose rangée par rangée (chaque rangée se remplit de gauche à droite)
+    var Wd=BW,Dd=BD,ovd=.35,ed=Dd/2+ovd,rwd=Wd+2*ovd,Hd=S.et?5.4:2.7,rd=S.r,flat=S.sh==='pl';
+    var sloL=S.sh==='g1'?Math.sqrt(4*ed*ed+rd*rd):Math.sqrt(ed*ed+rd*rd),sinA=flat?0:Math.max(rd/sloL,.05);
+    var rep=metal?4:5,Tw=rwd/rep,Th=(flat?Dd+.5:sloL)/rep;
+    var rpt={tuile:16,tromane:16,ardoise:16,tplate:32,tmeca:36.6,tembo:36.6,bardeau:32,zinc:8,bac:16}[type]||16;
+    var rowLen=(metal?Tw:Th)/rpt,rowH=flat?rowLen:rowLen*sinA;
+    var N=metal?Math.ceil(rwd/rowLen)+1:Math.ceil(((flat?Dd+.5:rd+.5))/rowH)+1;
+    poseN=N;
+    mat.onBeforeCompile=function(shader){
+      shader.uniforms.uReveal=revealU;
+      shader.uniforms.uH=shader.uniforms.uH||{value:Hd};
+      shader.uniforms.uRowH={value:rowH};shader.uniforms.uN={value:N};
+      shader.uniforms.uHW={value:rwd/2};shader.uniforms.uZ0={value:(Dd+.5)/2};shader.uniforms.uMode={value:metal?1:0};shader.uniforms.uFlat={value:flat?1:0};
+      shader.uniforms.uColW={value:rowLen};shader.uniforms.uRise={value:Math.max(rd,.3)};
+      shader.vertexShader='varying vec3 vW;\n'+shader.vertexShader;
+      shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvW = (modelMatrix * vec4(position, 1.0)).xyz;');
+      shader.fragmentShader='varying vec3 vW;\nuniform float uHW,uZ0,uReveal,uH,uRowH,uN,uMode,uFlat,uColW,uRise;\n'+shader.fragmentShader;
+      shader.fragmentShader=shader.fragmentShader.replace(
+        '#include <dithering_fragment>',
+        [
+          'float glow = 0.0;',
+          'if(uReveal < 0.999){',
+          '  float P = uReveal * uN, idx, fr;',
+          '  if(uMode < 0.5){',
+          '    idx = uFlat > 0.5 ? floor((uZ0 - vW.z) / uRowH) : floor((vW.y - uH) / uRowH);',
+          '    fr = clamp((vW.x + uHW) / (2.0 * uHW), 0.0, 1.0);',
+          '  }else{',
+          '    idx = floor((vW.x + uHW) / uColW);',
+          '    fr = clamp((vW.y - uH) / uRise, 0.0, 1.0);',
+          '  }',
+          '  idx = max(idx, 0.0);',
+          '  float cur = floor(P), f = fract(P);',
+          '  bool vis = idx < cur || (idx < cur + 0.5 && fr < f);',
+          '  if(!vis) discard;',
+          '  glow = (idx > cur - 1.5 && idx < cur + 0.5) ? 1.0 : 0.0;',
+          '}',
+          'gl_FragColor.rgb += vec3(0.16, 0.10, 0.04) * glow;',
+          '#include <dithering_fragment>'
+        ].join('\n')
+      );
+    };
+    mat.customProgramCacheKey=function(){return 'roofrows1'};
+    roofMats.push(mat);
+    return mat;
+  }
+
+  function startPoseAnim(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){revealU.value=1;return}
+    if(poseAnim)cancelAnimationFrame(poseAnim);
+    revealU.value=0;
+    var t0=performance.now(),dur=Math.min(7000,Math.max(2800,poseN*85));
+    function step(now){
+      var p=Math.min(1,(now-t0)/dur);
+      revealU.value=p;applyReveal();
+      if(p<1)poseAnim=requestAnimationFrame(step);
+      else{revealU.value=1;applyReveal();poseAnim=null}
+    }
+    poseAnim=requestAnimationFrame(step);
+  }
+
+  function setDims(){
+    var el2=document.getElementById('surf'),tg=el2?parseFloat(el2.value):NaN,lo=.45,hi=3.2,m,it;
+    if(!(tg>0))tg=80;
+    for(it=0;it<24;it++){m=(lo+hi)/2;BW=7.5*m;BD=5.5*m;if(calcM2()<tg)lo=m;else hi=m}
+    K=Math.max(1,BW/7.5);DM=32*K;
+  }
+  function calcM2(){
+    // dimensions réelles approximatives (échelle 1 unité ≈ 1 m)
+    var W=BW,D=BD,r=S.r,ov=.35,e=D/2+ov,rw=W+ov*2,area=0;
+    if(S.sh==='g2'){var L=Math.sqrt(e*e+r*r);area=2*rw*L}
+    else if(S.sh==='g4'){var X=W/2+ov,k=Math.max(X-e,.2);area=2*(X+k)*Math.sqrt(e*e+r*r)+2*(e)*Math.sqrt(Math.pow(X-k,2)+r*r)}
+    else if(S.sh==='g1'){area=rw*Math.sqrt(D*D+r*r)}
+    else{area=(W+.4)*(D+.4)}
+    if(S.ga)area+=3.5*4.8*1.05;
+    return Math.round(area*10)/10;
+  }
+
+  // ——— TUILES EN RELIEF : chaque tuile est un vrai volume (épaisseur, recouvrement, forme) ———
+  var TL={tuile:{pu:.20,pv:.30,k:'canal'},tromane:{pu:.24,pv:.33,k:'canal'},tplate:{pu:.17,pv:.15,k:'plate'},tmeca:{pu:.26,pv:.30,k:'wave'},tembo:{pu:.31,pv:.34,k:'wave'},ardoise:{pu:.22,pv:.16,k:'slate'},bardeau:{pu:.34,pv:.14,k:'shingle'},zinc:{pu:.50,k:'seam'},bac:{pu:.34,k:'rib'}};
+  function applyReveal(){tileMeshes.forEach(function(o){o.mesh.count=revealU.value>=.999?o.total:Math.floor(revealU.value*o.total)})}
+  function inPoly(P,u,t){var c=false,i,j;for(i=0,j=P.length-1;i<P.length;j=i++){if(((P[i][1]>t)!==(P[j][1]>t))&&(u<(P[j][0]-P[i][0])*(t-P[i][1])/(P[j][1]-P[i][1])+P[i][0]))c=!c}return c}
+  function warp(g,fn){var p=g.attributes.position,i;for(i=0;i<p.count;i++)p.setY(i,p.getY(i)+fn(p.getX(i),p.getZ(i)));g.computeVertexNormals();return g}
+  function plateGeo(w,l,t,lift,rr){
+    var sh=new THREE.Shape(),hw=w/2,hl=l/2;
+    sh.moveTo(-hw,-hl);sh.lineTo(hw,-hl);sh.lineTo(hw,hl-rr);sh.quadraticCurveTo(hw,hl,hw-rr,hl);sh.lineTo(-hw+rr,hl);sh.quadraticCurveTo(-hw,hl,-hw,hl-rr);sh.lineTo(-hw,-hl);
+    var g=new THREE.ExtrudeGeometry(sh,{depth:t,bevelEnabled:false,curveSegments:4});
+    g.rotateX(Math.PI/2);g.translate(0,t,0);
+    return warp(g,function(x,z){return lift*(z/l+.5)});
+  }
+  function ribGeo(pts){
+    var sh=new THREE.Shape();sh.moveTo(pts[0][0],pts[0][1]);for(var i=1;i<pts.length;i++)sh.lineTo(pts[i][0],pts[i][1]);
+    var g=new THREE.ExtrudeGeometry(sh,{depth:1,bevelEnabled:false});g.translate(0,0,-.5);g.computeVertexNormals();return g;
+  }
+  function tgeo(kind,pu){
+    if(kind==='plate')return plateGeo(.165,.30,.013,.024,.045);
+    if(kind==='slate')return plateGeo(.215,.34,.007,.018,.0005);
+    if(kind==='shingle')return plateGeo(.33,.30,.006,.013,.001);
+    if(kind==='wave'){var w=S.m==='tembo'?.30:.26,l=S.m==='tembo'?.42:.38,A=S.m==='tembo'?.02:.011,nW=S.m==='tembo'?1:2;
+      return warp(new THREE.BoxGeometry(w,.012,l,16,1,2),function(x,z){return .024*(z/l+.5)+A*Math.cos(x*Math.PI*2*nW/w)})}
+    if(kind==='pan'){var wp=pu*.98;return warp(new THREE.BoxGeometry(wp,.01,.42,12,1,3),function(x,z){return .022*(z/.42+.5)+.045*Math.pow(2*x/wp,2)})}
+    if(kind==='cover'){var wc2=pu*.64;return warp(new THREE.BoxGeometry(wc2,.01,.40,12,1,3),function(x,z){return .02*(z/.40+.5)+.03+.05*(1-Math.pow(2*x/wc2,2))})}
+    if(kind==='rib')return ribGeo([[-.03,0],[.03,0],[.013,.03],[-.013,.03]]);
+    return ribGeo([[-.014,0],[.014,0],[.014,.03],[.024,.03],[.024,.042],[-.024,.042],[-.024,.03],[-.014,.03]]);
+  }
+  function buildTiles(faces,holes,rc){
+    var sp=TL[S.m];if(!sp||!faces.length)return;
+    var metal=S.m==='zinc'||S.m==='bac',base=new THREE.Color(rc),rnd=Math.random,k=sp.k,pu=sp.pu,pv=sp.pv||0,A=[],B=[],maxRows=0,ncols=0;
+    var mat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:S.m==='ardoise'?.5:(metal?.35:.8),metalness:metal?.4:0});
+    if(pv){var est=calcM2()/(pu*pv),f=est>24000?Math.sqrt(est/24000):1;pu*=f;pv*=f}
+    function hole(P){for(var i=0;i<holes.length;i++){var h=holes[i];if(P.x>h[0]&&P.x<h[1]&&P.z>h[2]&&P.z<h[3])return true}return false}
+    faces.forEach(function(F,fi){
+      var P=F.p,n=new THREE.Vector3().crossVectors(P[1].clone().sub(P[0]),P[2].clone().sub(P[1])).normalize();
+      if(n.y<0)n.negate();
+      var h2=n.x*n.x+n.z*n.z,Vd=new THREE.Vector3(n.x,-h2/n.y,n.z).normalize(),U=new THREE.Vector3().crossVectors(n,Vd).normalize(),p0=P[0],i,d;
+      P.forEach(function(p){if(p.dot(Vd)>p0.dot(Vd))p0=p});
+      var poly=P.map(function(p){var q=p.clone().sub(p0);return [q.dot(U),-q.dot(Vd)]}),umin=1e9,umax=-1e9,tmax=0;
+      poly.forEach(function(q){umin=Math.min(umin,q[0]);umax=Math.max(umax,q[0]);tmax=Math.max(tmax,q[1])});
+      function at(u,t,o){return p0.clone().addScaledVector(U,u).addScaledVector(Vd,-t).addScaledVector(n,F.o+(o||0))}
+      function ok(u,t){return inPoly(poly,u,t)||inPoly(poly,u+pu*.45,t)||inPoly(poly,u-pu*.45,t)}
+      var mx=new THREE.Matrix4(),jt=new THREE.Matrix4(),eu=new THREE.Euler(),col;
+      function put(list,u,t,key,sc){
+        var Pw=at(u,t,rnd()*.004);if(hole(Pw))return;
+        mx.makeBasis(U,n,Vd);mx.setPosition(Pw);
+        if(sc)mx.multiply(jt.makeScale(1,1,sc));
+        else if(k==='plate'||k==='slate'||k==='shingle'){eu.set((rnd()-.5)*.04,(rnd()-.5)*.06,(rnd()-.5)*.04);mx.multiply(jt.makeRotationFromEuler(eu))}
+        col=base.clone().offsetHSL((rnd()-.5)*.02,(rnd()-.5)*.06,(rnd()-.5)*(metal?.03:.1));
+        list.push({key:key,m:mx.clone(),c:col});
+      }
+      if(metal){
+        var ustart=Math.ceil(umin/pu)*pu,u,t,tlo,thi;
+        for(u=ustart;u<=umax;u+=pu){
+          tlo=null;for(t=0;t<=tmax;t+=.05){if(inPoly(poly,u,t)){if(tlo===null)tlo=t;thi=t}}
+          if(tlo===null)continue;
+          put(A,u,(tlo+thi)/2,fi*1e5+(u-umin)*100,thi-tlo+.1);ncols++;
+        }
+      }else{
+        var row,u2,t2,ust=Math.floor(umin/pu)*pu-pu;
+        for(row=0;;row++){
+          t2=Math.max(pv*.5-.06,.02)+row*pv;if(t2>tmax+pv*.3)break;
+          maxRows=Math.max(maxRows,row+1);
+          var off=(k==='plate'||k==='slate'||k==='shingle')&&row%2?pu/2:0;
+          for(u2=ust+off;u2<=umax+pu;u2+=pu){
+            var key=row*1e6+fi*1e5+(u2-umin+2)*100;
+            if(k==='canal'){if(ok(u2,t2))put(A,u2,t2,key);if(ok(u2+pu/2,t2))put(B,u2+pu/2,t2,key+1)}
+            else if(ok(u2,t2))put(A,u2,t2,key);
+          }
+        }
+      }
+    });
+    function mk(list,geo){
+      if(!list.length)return;list.sort(function(a,b){return a.key-b.key});
+      var im=new THREE.InstancedMesh(geo,mat,list.length),i;
+      for(i=0;i<list.length;i++){im.setMatrixAt(i,list[i].m);im.setColorAt(i,list[i].c)}
+      im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;
+      im.castShadow=im.receiveShadow=true;im.frustumCulled=false;grp.add(im);tileMeshes.push({mesh:im,total:list.length});
+    }
+    if(k==='canal'){mk(A,tgeo('pan',pu));mk(B,tgeo('cover',pu))}
+    else mk(A,tgeo(k==='seam'?'seam':k==='rib'?'rib':k,pu));
+    poseN=Math.max(6,metal?ncols:maxRows)*4;
+  }
+
+  // ——— OUTILS 3D : vues, cotes, légendes, charpente, mesure, soleil, métré ———
+  var labels=[],mlabels=[],lblEls=[],tw=null,ms=false,mp=[],mgrp,curRoof,curTop;
+  var VIEWS=[['Perspective',.7,.35],['Face',0,.06],['Arrière',Math.PI,.06],['Côté',Math.PI/2,.06],['Dessus',0,1.5]];
+  function n1(x){return (Math.round(x*10)/10).toString().replace('.',',')}
+  function hint(t){var h=document.getElementById('vhint');if(h)h.textContent=t||''}
+  function relabel(){
+    var box=document.getElementById('vlabels');if(!box)return;box.innerHTML='';lblEls=[];
+    labels.concat(mlabels).forEach(function(L){var d=document.createElement('div');d.className='vl '+(L.c||'');d.textContent=L.t;box.appendChild(d);lblEls.push({el:d,L:L})});
+  }
+  function updLabels(){
+    var cp=document.getElementById('vcompass');if(cp)cp.firstElementChild.style.transform='rotate('+az+'rad)';
+    if(!lblEls.length)return;
+    var cw=view.clientWidth,ch=view.clientHeight,v=new THREE.Vector3();
+    lblEls.forEach(function(o){
+      v.copy(o.L.p).project(cam);
+      if(v.z>1||v.z<-1){o.el.style.display='none';return}
+      o.el.style.display='';
+      var w=o.el.offsetWidth/2,h=o.el.offsetHeight/2;
+      o.el.style.left=Math.max(w+2,Math.min(cw-w-2,(v.x*.5+.5)*cw))+'px';
+      o.el.style.top=Math.max(h+2,Math.min(ch-h-2,(-v.y*.5+.5)*ch))+'px';
+    });
+  }
+  function goView(a1,e1){auto=false;var r=document.getElementById('rot');if(r)r.setAttribute('aria-pressed',false);tw={a0:az,e0:el,a1:a1,e1:e1,t0:performance.now()}}
+  function stepTween(){
+    if(!tw)return;
+    var p=Math.min(1,(performance.now()-tw.t0)/700),q=p*p*(3-2*p),da=((tw.a1-tw.a0+3*Math.PI)%(2*Math.PI))-Math.PI;
+    az=tw.a0+da*q;el=tw.e0+(tw.e1-tw.e0)*q;if(p>=1)tw=null;
+  }
+  function updateSun(){
+    if(!sunRef)return;
+    var ang=(S.hr-12)/12*Math.PI,elv=Math.max(.14,.85*Math.cos(ang*.95)),R=26*K,hz=R*Math.cos(elv),se=Math.sin(elv);
+    sunRef.position.set(-Math.sin(ang)*hz,R*se,Math.cos(ang)*hz);
+    sunRef.intensity=.55+.6*se;sunRef.color.setHSL(.095,.2+.6*(1-se),.84);
+  }
+  function clearMeasure(){
+    mp=[];mlabels=[];
+    if(mgrp)while(mgrp.children.length){var o=mgrp.children[0];if(o.geometry)o.geometry.dispose();mgrp.remove(o)}
+    if(ms)hint('Cliquez un 1er point sur la maison.');
+  }
+  function visChain(o){while(o){if(o.visible===false)return false;o=o.parent}return true}
+  function pick(ev){
+    var r=view.getBoundingClientRect(),m=new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1),rc=new THREE.Raycaster(),hits,i,h=null;
+    rc.setFromCamera(m,cam);hits=rc.intersectObjects(grp.children,true);
+    for(i=0;i<hits.length;i++){var ob=hits[i].object,mt=Array.isArray(ob.material)?ob.material[0]:ob.material;if(visChain(ob)&&ob.type!=='Line'&&!(mt&&mt.visible===false)&&!(mt&&mt.depthTest===false)){h=hits[i];break}}
+    if(!h){hint('Aucune surface touchée : visez la maison.');return}
+    if(mp.length>=2)clearMeasure();
+    mp.push(h.point.clone());
+    var mk2=new THREE.Mesh(new THREE.SphereGeometry(.09,10,8),new THREE.MeshBasicMaterial({color:0xff3b30,depthTest:false}));mk2.position.copy(h.point);mk2.renderOrder=30;mgrp.add(mk2);
+    if(mp.length===1){hint('Cliquez un 2e point.')}
+    else{
+      var d=mp[0].distanceTo(mp[1]),ln=new THREE.Line(new THREE.BufferGeometry().setFromPoints(mp),new THREE.LineBasicMaterial({color:0xff3b30,depthTest:false}));ln.renderOrder=30;mgrp.add(ln);
+      mlabels=[{p:mp[0].clone().add(mp[1]).multiplyScalar(.5),t:d.toFixed(2).replace('.',',')+' m',c:'dim'}];relabel();
+      hint('Distance : '+d.toFixed(2).replace('.',',')+' m. Cliquez pour recommencer.');
+    }
+  }
+  function faceBasis(F){
+    var P=F.p,n=new THREE.Vector3().crossVectors(P[1].clone().sub(P[0]),P[2].clone().sub(P[1])).normalize();
+    if(n.y<0)n.negate();
+    var h2=n.x*n.x+n.z*n.z,Vd=new THREE.Vector3(n.x,-h2/n.y,n.z).normalize(),U=new THREE.Vector3().crossVectors(n,Vd).normalize(),p0=P[0];
+    P.forEach(function(p){if(p.dot(Vd)>p0.dot(Vd))p0=p});
+    var poly=P.map(function(p){var q=p.clone().sub(p0);return [q.dot(U),-q.dot(Vd)]}),b={n:n,Vd:Vd,U:U,p0:p0,poly:poly,umin:1e9,umax:-1e9,tmax:0};
+    poly.forEach(function(q){b.umin=Math.min(b.umin,q[0]);b.umax=Math.max(b.umax,q[0]);b.tmax=Math.max(b.tmax,q[1])});
+    return b;
+  }
+  function buildTrusses(){
+    var wood=new THREE.MeshStandardMaterial({color:'#b98c5a',roughness:.85}),ps=[],L=Math.sqrt(e*e+r*r)-.1,n=Math.max(3,Math.round((rw-.4)/2.4)+1),x,k,sg;
+    function b(w,h,d,x0,y0,z0,rx){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),wood);m.position.set(x0,y0,z0);if(rx)m.rotation.x=rx;m.castShadow=m.receiveShadow=true;grp.add(m);return m}
+    /* faîtage */
+    b(rw-.2,.16,.16,0,H+r-.02,0);
+    for(k=0;k<n;k++){
+      x=-rw/2+.2+k*(rw-.4)/(n-1);
+      /* poinçon vertical sous le faîtage */
+      b(.14,r,.14,x,H+r/2,0);
+      /* entrait (tirant horizontal) */
+      b(.14,.16,2*e-.2,x,H+.08,0);
+      /* arbalétriers */
+      [1,-1].forEach(function(s2){b(.12,.16,L,x,H+r/2,s2*e/2,s2*sa)});
+      /* jambe de force (contreventement) */
+      [1,-1].forEach(function(s2){var jl=Math.hypot(.6,.9);var m2=b(.1,.1,jl,x,H+.45,s2*e*.28,s2*Math.atan2(.6,.9));m2.rotation.order='XYZ'});
+    }
+    /* pannes intermédiaires et sablières */
+    [1,-1].forEach(function(s2){b(rw-.2,.14,.14,0,H+r*.5-.05,s2*e*.5,0);b(rw-.2,.14,.14,0,H+.25,s2*(e-.15),0)});
+}
+  function buildFrame(faces){
+    var wood=new THREE.MeshStandardMaterial({color:'#b98c5a',roughness:.85}),ch=[],li=[];
+    faces.forEach(function(F){
+      var b=faceBasis(F),u,t,lo,hi,m;
+      function mx(u,t,o,sx,sz){var M=new THREE.Matrix4().makeBasis(b.U,b.n,b.Vd);M.setPosition(b.p0.clone().addScaledVector(b.U,u).addScaledVector(b.Vd,-t).addScaledVector(b.n,F.o+o));return M.multiply(new THREE.Matrix4().makeScale(sx,1,sz))}
+      for(u=Math.ceil(b.umin/.6)*.6;u<=b.umax;u+=.6){lo=null;for(t=0;t<=b.tmax;t+=.05){if(inPoly(b.poly,u,t)){if(lo===null)lo=t;hi=t}}if(lo!==null)ch.push(mx(u,(lo+hi)/2,-.06,1,hi-lo+.1))}
+      for(t=.15;t<=b.tmax;t+=.33){lo=null;for(u=b.umin;u<=b.umax;u+=.05){if(inPoly(b.poly,u,t)){if(lo===null)lo=u;hi=u}}if(lo!==null)li.push(mx((lo+hi)/2,t,.02,hi-lo+.1,1))}
+    });
+    function mk(list,geo){if(!list.length)return;var im=new THREE.InstancedMesh(geo,wood,list.length),i;for(i=0;i<list.length;i++)im.setMatrixAt(i,list[i]);im.instanceMatrix.needsUpdate=true;im.castShadow=im.receiveShadow=true;im.frustumCulled=false;grp.add(im)}
+    mk(ch,new THREE.BoxGeometry(.06,.14,1));mk(li,new THREE.BoxGeometry(1,.03,.04));
+  }
+  function applyView(){
+    var fr=S.fr&&S.sh!=='pl';
+    tileMeshes.forEach(function(o){o.mesh.visible=!fr});
+    if(curRoof)curRoof.visible=!fr;if(curTop)curTop.visible=!fr;
+    grp.traverse(function(o){if(o.material&&o.type!=='Line'&&o.type!=='Points')(Array.isArray(o.material)?o.material:[o.material]).forEach(function(m){if('wireframe' in m)m.wireframe=!!S.wf})});
+    if(sunRef)sunRef.castShadow=!!S.sd;
+    updateSun();relabel();
+  }
+  function renderMetre(){
+    var el3=document.getElementById('met');if(!el3)return;
+    var W=BW,D=BD,H=S.et?5.4:2.7,r=S.r,e=D/2+.35,rw=W+.7,flat=S.sh==='pl',sl=flat?0:Math.atan2(r,S.sh==='g1'?2*e:e),m2=calcM2();
+    var rl=flat?0:(S.sh==='g4'?2*Math.max(W/2+.35-e,.2)+.3:rw),gut=flat?0:(S.sh==='g1'?rw:(S.sh==='g4'?2*rw+2*(D+.7):2*rw)),riv=S.sh==='g2'?4*Math.sqrt(e*e+r*r):0;
+    var dens={tuile:22,tromane:16,tplate:70,tmeca:14,tembo:10,ardoise:32}[S.m]||0,kg={tuile:42,tromane:45,tplate:70,tmeca:44,tembo:42,ardoise:28,bardeau:12,zinc:6,bac:6,membrane:4,vegetal:90}[S.m]||0;
+    var fr2=function(x){return Math.round(x).toLocaleString('fr-FR')};
+    var rows=[['Emprise au sol',n1(W)+' × '+n1(D)+' m'],['Hauteur égout / faîtage',n1(H)+' / '+n1(flat?H+.5:H+r)+' m'],['Pente',flat?'≈ 2 % (toit plat)':Math.round(sl*180/Math.PI)+'° ('+Math.round(Math.tan(sl)*100)+' %)'],['Surface de toiture',n1(m2)+' m²'],['Gouttières',gut?n1(gut)+' ml':'—'],['Faîtage',rl?n1(rl)+' ml':'—'],['Rives',riv?n1(riv)+' ml':'—'],['Éléments de couverture (≈)',dens?fr2(m2*dens):'—'],['Poids de couverture (≈)',kg?fr2(m2*kg)+' kg':'—']];
+    el3.innerHTML=rows.map(function(x){return '<dt>'+x[0]+'</dt><dd>'+x[1]+'</dd>'}).join('');
+  }
+
+  function build(){
+    while(grp.children.length){var o=grp.children[0];o.traverse(function(n){if(n.geometry)n.geometry.dispose();if(n.material){(Array.isArray(n.material)?n.material:[n.material]).forEach(function(ms){if(ms.map)ms.map.dispose();ms.dispose&&ms.dispose()})}});grp.remove(o)}
+    roofMats=[];
+    setDims();clearMeasure();
+    if(Math.abs(K-lastK)>.01){dist=Math.min(DM,16*K);lastK=K}
+    cam.far=100*K;cam.updateProjectionMatrix();sc.fog.near=40*K;sc.fog.far=85*K;
+    if(gndRef)gndRef.scale.set(K,K,K);
+    if(sunRef){var sc2=sunRef.shadow.camera;sc2.left=sc2.bottom=-16*K;sc2.right=sc2.top=16*K;sc2.updateProjectionMatrix()}
+    var W=BW,D=BD,H=S.et?5.4:2.7,r=S.r,ov=.35,rc=MATS[S.m].c[S.c][1],wc=WALLS[S.w][1];
+    var wall=std(wc,.92),roof=roofMat(rc),frame=std('#f5f2eb',.55),glass=new THREE.MeshStandardMaterial({color:'#9ec5db',roughness:.12,metalness:.25,transparent:true,opacity:.75}),
+      stone=std('#c9c2b6',.9),edge=std('#2a2e32',.7),zn=std('#9aa3aa',.4,.45),wood=std('#5a3d2b',.9),
+      doorCol=std('#e85d2c',.7),doorDark=std('#c44a22',.65),sill=std('#e8e4dc',.8),black=std('#1a1a1a',.5);
+    var roofTop=std(rc,.7),faces=[],V=function(x,y,z){return new THREE.Vector3(x,y,z)};
+    tileMeshes=[];
+    if(S.sh!=='pl'){var metalM=S.m==='zinc'||S.m==='bac';roof=metalM?std(rc,.4,.35):std(new THREE.Color(rc).multiplyScalar(.42),.9)}
+    curRoof=roof;curTop=roofTop;
+
+    // matière de façade (1 texture = 1 m)
+    function wallCanvas(st,hex){
+      var c=document.createElement('canvas');c.width=c.height=256;var g=c.getContext('2d'),i,x,y,rr=Math.random;
+      if(st==='brique'){
+        g.fillStyle='#d6ccb8';g.fillRect(0,0,256,256);
+        for(y=0;y<256;y+=16)for(x=-64;x<256;x+=64){var ox=x+((y/16)%2?32:0);g.fillStyle=hex;g.fillRect(ox+2,y+2,60,12);g.fillStyle='rgba(0,0,0,'+rr()*.16+')';g.fillRect(ox+2,y+2,60,12);g.fillStyle='rgba(255,255,255,'+rr()*.08+')';g.fillRect(ox+2,y+2,60,3)}
+      }else if(st==='pierre'){
+        g.fillStyle='#cfc8ba';g.fillRect(0,0,256,256);
+        [42,30,56,42,42,44].reduce(function(yy,hh,ri){var xx=-(ri%2)*40;while(xx<256){var bw2=Math.min(60+rr()*50,300);g.fillStyle=hex;g.fillRect(xx+2,yy+2,bw2-4,hh-4);g.fillStyle=rr()<.5?'rgba(0,0,0,'+rr()*.12+')':'rgba(255,255,255,'+rr()*.12+')';g.fillRect(xx+2,yy+2,bw2-4,hh-4);xx+=bw2}return yy+hh},0);
+      }else if(st==='bardage'){
+        g.fillStyle=hex;g.fillRect(0,0,256,256);
+        for(x=0;x<256;x+=32){g.fillStyle='rgba(0,0,0,'+(.04+rr()*.08)+')';g.fillRect(x,0,32,256);g.fillStyle='rgba(0,0,0,.45)';g.fillRect(x,0,2,256);g.fillStyle='rgba(255,255,255,.12)';g.fillRect(x+2,0,2,256);for(i=0;i<6;i++){g.fillStyle='rgba(0,0,0,.07)';g.fillRect(x+4+rr()*24,rr()*256,1,20+rr()*50)}}
+      }else{
+        g.fillStyle=hex;g.fillRect(0,0,256,256);
+        for(i=0;i<3500;i++){g.fillStyle=i%2?'rgba(255,255,255,.14)':'rgba(0,0,0,.07)';g.fillRect(rr()*256,rr()*256,1+rr()*2,1+rr()*2)}
+      }
+      return c;
+    }
+    var wcan=wallCanvas(S.ws,wc);
+    function wmat(rx,ry){var t=new THREE.CanvasTexture(wcan);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx,ry);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return new THREE.MeshStandardMaterial({map:t,roughness:.92})}
+    function wbox(w,h,d,x,y,z){var sx=wmat(d,h),fx=wmat(w,h);return add(new THREE.BoxGeometry(w,h,d),[sx,sx,wall,wall,fx,fx],x,y,z)}
+    var wallG=wmat(1,1),gold=std('#d4af37',.3,.8);
+
+    // corps
+    wbox(W,H,D,0,H/2,0);
+    box(W+.2,.12,D+.2,stone,0,.06,0);
+    if(S.et){box(W+.12,.1,D+.12,stone,0,2.7,0);box(W+.05,.08,D+.05,std('#ddd8ce',.7),0,2.76,0)}
+
+    // toiture
+    var e=D/2+ov,L=Math.sqrt(e*e+r*r),a=Math.atan2(r,e),rw=W+ov*2,m2=calcM2();
+    if(S.sh==='g2'){
+      box(rw,.14,L,roof,0,H+r/2,e/2,a);
+      box(rw,.14,L,roof,0,H+r/2,-e/2,-a);
+      var Xg=rw/2;faces.push({p:[V(-Xg,H,e),V(Xg,H,e),V(Xg,H+r,0),V(-Xg,H+r,0)],o:.07},{p:[V(Xg,H,-e),V(-Xg,H,-e),V(-Xg,H+r,0),V(Xg,H+r,0)],o:.07});
+      box(rw+.08,.16,.32,edge,0,H+r+.1,0);
+      [1,-1].forEach(function(s){
+        var sh=new THREE.Shape();sh.moveTo(-D/2,0);sh.lineTo(D/2,0);sh.lineTo(0,r);
+        add(new THREE.ShapeGeometry(sh),wallG,s*(W/2+.015),H,0,0,s*Math.PI/2,0);
+        // rives
+        box(.08,.2,L,edge,s*(rw/2-.02),H+r/2,e/2,a);
+        box(.08,.2,L,edge,s*(rw/2-.02),H+r/2,-e/2,-a);
+      });
+    }else if(S.sh==='g4'){
+      var k=W/2+ov-e;
+      function face(pts){faces.push({p:pts,o:0});var g=new THREE.BufferGeometry(),pos=[],i;for(i=1;i<pts.length-1;i++)[pts[0],pts[i],pts[i+1]].forEach(function(p){pos.push(p.x,p.y,p.z)});g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));var uv=[];for(i=0;i<pos.length;i+=3)uv.push((pts.length===4?pos[i]:pos[i+2])/(rw/5),(pos[i+1]-H)/Math.max(r/L,.05)/(L/5));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.computeVertexNormals();add(g,roof,0,0,0)}
+      var V=function(x,y,z){return new THREE.Vector3(x,y,z)},X=W/2+ov;
+      face([V(-X,H,e),V(X,H,e),V(k,H+r,0),V(-k,H+r,0)]);
+      face([V(X,H,-e),V(-X,H,-e),V(-k,H+r,0),V(k,H+r,0)]);
+      face([V(X,H,e),V(X,H,-e),V(k,H+r,0)]);
+      face([V(-X,H,-e),V(-X,H,e),V(-k,H+r,0)]);
+      box(2*Math.max(k,.2)+.25,.14,.28,edge,0,H+r+.06,0);
+    }else if(S.sh==='g1'){
+      var g=new THREE.BufferGeometry(),pos=[],pts=[new THREE.Vector3(-rw/2,H,e),new THREE.Vector3(rw/2,H,e),new THREE.Vector3(rw/2,H+r,-e),new THREE.Vector3(-rw/2,H+r,-e)];
+      [0,1,2,0,2,3].forEach(function(i){pos.push(pts[i].x,pts[i].y,pts[i].z)});
+      g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));var G1=Math.sqrt(4*e*e+r*r),uv1=[];for(var ui=0;ui<pos.length;ui+=3)uv1.push(pos[ui]/(rw/5),(pos[ui+1]-H)/Math.max(r/G1,.05)/(G1/5));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv1,2));faces.push({p:pts,o:0});g.computeVertexNormals();add(g,roof,0,0,0);
+      box(W,r,.18,wall,0,H+r/2,-D/2+.1);
+    }else{
+      box(W+.5,.22,D+.5,roof,0,H+.11,0);
+      [1,-1].forEach(function(s){box(W+.5,.32,.16,stone,0,H+.38,s*(D/2+.18));box(.16,.32,D+.25,stone,s*(W/2+.18),H+.38,0)});
+    }
+
+    // gouttières
+    if(S.sh!=='pl'){
+      (S.sh==='g1'?[1]:[1,-1]).forEach(function(s){
+        var gt=add(new THREE.CylinderGeometry(.11,.11,rw,14,1,false,0,Math.PI),zn,0,H-.02,s*(e+.08),0,0,Math.PI/2);
+        if(s>0)gt.rotation.x=Math.PI;
+      });
+      [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(function(p){
+        if(S.sh==='g1'&&p[1]<0)return;
+        add(new THREE.CylinderGeometry(.055,.055,H+.1,8),zn,p[0]*(W/2-.08),H/2,p[1]*(D/2+.12));
+        box(.12,.08,.16,zn,p[0]*(W/2-.08),.1,p[1]*(D/2+.22));
+      });
+    }
+
+    // ——— OUVERTURES (dimensions réelles : fenêtre 1,20 × 1,35 m, allège 0,90 m, porte 1,00 × 2,10 m) ———
+    function oriented(x,y,z,ry,fn){var g0=new THREE.Group();g0.position.set(x,y,z);g0.rotation.y=ry;grp.add(g0);fn(function(w,h,d,m,lx,ly,lz){var o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(lx,ly,lz);o.castShadow=o.receiveShadow=true;g0.add(o);return o})}
+    function win(x,y,z,ry,ww,hh,sh){oriented(x,y,z,ry,function(L){
+      L(ww,hh,.04,glass,0,0,.02);
+      L(ww+.14,.07,.1,frame,0,hh/2+.035,.05);L(ww+.14,.07,.1,frame,0,-hh/2-.035,.05);
+      L(.07,hh,.1,frame,-ww/2-.035,0,.05);L(.07,hh,.1,frame,ww/2+.035,0,.05);
+      L(.04,hh,.05,frame,0,0,.05);L(ww,.04,.05,frame,0,.12,.05);
+      L(ww+.34,.14,.14,sill,0,hh/2+.14,.07);
+      L(ww+.22,.06,.2,sill,0,-hh/2-.1,.1);
+      if(sh)[-1,1].forEach(function(q){L(.34,hh+.1,.05,doorCol,q*(ww/2+.28),0,.06);for(var li=-3;li<=3;li++)L(.3,.015,.06,doorDark,q*(ww/2+.28),li*.17,.09)});
+    })}
+    function door(x,y,z,ry){oriented(x,y,z,ry,function(L){
+      L(1.0,2.1,.08,doorCol,0,0,.04);
+      L(1.2,.08,.12,frame,0,1.09,.06);L(.08,2.1,.12,frame,-.54,0,.06);L(.08,2.1,.12,frame,.54,0,.06);
+      L(.75,.55,.03,doorDark,0,.55,.1);L(.75,.55,.03,doorDark,0,-.15,.1);L(.75,.35,.03,doorDark,0,-.7,.1);
+      L(.05,.05,.12,gold,.34,0,.12);
+      L(1.8,.12,1.0,stone,0,-1.11,.5);
+      L(1.7,.07,.9,edge,0,1.15,.45);
+      [-.8,.8].forEach(function(q){L(.06,2.2,.06,frame,q,.03,.85)});
+    })}
+    var fz=D/2,nb=Math.max(2,Math.round(W/2.6)),bw=W/nb,bx=function(i){return -W/2+(i+.5)*bw},di=Math.floor((nb-1)/2),wy1=1.7,wy2=4.3;
+    for(var bi2=0;bi2<nb;bi2++){
+      if(bi2===di)door(bx(bi2),1.17,fz,0);else win(bx(bi2),wy1,fz,0,1.2,1.35,bw>=2.3);
+      win(bx(bi2),wy1,-fz,Math.PI,bi2===di?1.5:1.2,1.35,false);
+      if(S.et){win(bx(bi2),wy2,fz,0,1.2,1.35,bw>=2.3);win(bx(bi2),wy2,-fz,Math.PI,1.2,1.35,false)}
+    }
+    [-1,1].forEach(function(q){
+      if(q<0&&S.ga)return;
+      win(q*W/2,wy1,-D*.2,q*Math.PI/2,1.0,1.35,false);
+      if(S.et)win(q*W/2,wy2,-D*.2,q*Math.PI/2,1.0,1.35,false);
+    });
+    oriented(W/2,1.17,D*.22,Math.PI/2,function(L){L(.9,2.1,.08,doorDark,0,0,.04);L(1.0,.08,.1,frame,0,1.09,.05);L(.08,2.1,.1,frame,-.49,0,.05);L(.08,2.1,.1,frame,.49,0,.05);L(.05,.05,.1,gold,.3,0,.1)});
+
+    // ——— repères de pente ———
+    var sa=Math.atan2(r,S.sh==='g1'?2*e:e);
+    function sy(z){return S.sh==='g1'?H+r*(e-z)/(2*e):H+r*(1-Math.abs(z)/e)}
+    function rb(w,t,l,m,x,z,off,fr){var sg=fr?1:-1,d=.07+t/2+off;return box(w,t,l,m,x,sy(z)+Math.cos(sa)*d,z+sg*Math.sin(sa)*d,sg*sa)}
+
+    // cheminée briques + solin zinc
+    if(S.ch&&S.sh!=='pl'){
+      var cx=Math.min(2.3,W*.3),cz=.15,ys=sy(cz),brick=std('#b04a36',.9),mort=std('#d9cfc0',.9);
+      box(.75,1.9,.75,brick,cx,ys+.25,cz);
+      for(var bi=0;bi<5;bi++)box(.77,.025,.77,mort,cx,ys+.15+bi*.24,cz);
+      box(.98,.07,.98,zn,cx,ys+.04,cz);
+      box(.9,.1,.9,stone,cx,ys+1.25,cz);
+      box(.55,.06,.55,black,cx,ys+1.31,cz);
+      [-.18,.18].forEach(function(dx){add(new THREE.CylinderGeometry(.08,.1,.35,8),std('#8a4030',.8),cx+dx,ys+1.5,cz)});
+    }
+
+    if(S.sh!=='pl'){
+      // faîtière arrondie
+      var rl=S.sh==='g4'?2*Math.max(W/2+ov-e,.2)+.3:rw,rzz=S.sh==='g1'?-e+.05:0;
+      add(new THREE.CylinderGeometry(.15,.15,rl,12),roofTop,0,(S.sh==='g1'?H+r+.1:H+r+.2),rzz,0,0,Math.PI/2);
+      // antenne
+      var ax=S.sh==='g4'?-.5:-Math.min(3,W*.4),az0=S.sh==='g1'?-e+.1:0,ay=H+r+.3;
+      add(new THREE.CylinderGeometry(.02,.02,1.4,6),black,ax,ay+.7,az0);
+      [[.7,.55],[1.0,.42],[1.25,.3]].forEach(function(b){box(.02,.02,b[1],black,ax,ay+b[0],az0)});
+      // fascia, crochets de gouttière, colliers et dauphins
+      (S.sh==='g1'?[1]:[1,-1]).forEach(function(sg){
+        box(rw,.18,.05,frame,0,H-.1,sg*(e-.02));
+        for(var hi=0;hi<9;hi++)box(.03,.03,.24,black,-rw/2+.2+hi*(rw-.4)/8,H-.07,sg*(e+.02));
+      });
+      [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(function(q){
+        if(S.sh==='g1'&&q[1]<0)return;
+        var px=q[0]*(W/2-.08),pz=q[1]*(D/2+.12);
+        [.3,.62].forEach(function(f){box(.15,.04,.15,zn,px,H*f+.2,pz)});
+        add(new THREE.CylinderGeometry(.065,.065,.8,8),std('#3a3f44',.5,.5),px,.4,pz);
+      });
+    }
+
+    // fenêtres de toit (Velux) avec solin
+    if(S.vx&&S.sh!=='pl'){
+      [-Math.min(1.9,W*.25),-Math.min(.7,W*.09)].forEach(function(vx){
+        var z0=e*.5;
+        rb(1.0,.05,1.5,zn,vx,z0,0,true);
+        rb(.8,.1,1.2,frame,vx,z0,.03,true);
+        rb(.66,.04,1.06,glass,vx,z0,.15,true);
+        rb(.04,.03,1.06,frame,vx,z0,.18,true);
+      });
+    }
+
+    // panneaux solaires
+    if(S.so){
+      var tc=document.createElement('canvas');tc.width=128;tc.height=224;var tg=tc.getContext('2d'),ti2;
+      tg.fillStyle='#13223e';tg.fillRect(0,0,128,224);tg.strokeStyle='#6d86ad';tg.lineWidth=1.5;
+      for(ti2=1;ti2<6;ti2++){tg.beginPath();tg.moveTo(ti2*128/6,0);tg.lineTo(ti2*128/6,224);tg.stroke()}
+      for(ti2=1;ti2<10;ti2++){tg.beginPath();tg.moveTo(0,ti2*22.4);tg.lineTo(128,ti2*22.4);tg.stroke()}
+      tg.strokeStyle='#c9ced2';tg.lineWidth=6;tg.strokeRect(0,0,128,224);
+      var ptx=new THREE.CanvasTexture(tc);ptx.encoding=THREE.sRGBEncoding;
+      var pm=new THREE.MeshStandardMaterial({map:ptx,roughness:.3,metalness:.45});
+      if(S.sh==='pl'){
+        for(var pi=0;pi<3;pi++)box(1.2,.06,1.6,pm,(pi-1)*1.35,H+.6,0,.4);
+      }else{
+        var fr1=S.sh==='g1',np=S.sh==='g2'?4:3;
+        for(var pj=0;pj<np;pj++)rb(1.05,.05,1.7,pm,(fr1?1.4:0)+(pj-(np-1)/2)*1.1,fr1?e*.5:-e*.5,.03,fr1);
+      }
+    }
+
+    // échafaudage de façade
+    if(S.sf){
+      var sm=std('#9aa3aa',.4,.7),pk=std('#b88a50',.8),sz=fz+1.0,lv=S.et?[2.5,4.95]:[2.5],tp=lv[lv.length-1]+1.1,sw=W+.8,sn=Math.max(2,Math.ceil(sw/2.2)),sbay=sw/sn,sx0=-sw/2;
+      for(var si=0;si<=sn;si++)add(new THREE.CylinderGeometry(.03,.03,tp,8),sm,sx0+si*sbay,tp/2,sz);
+      lv.forEach(function(ly){box(sw,.05,.9,pk,0,ly,sz-.45);box(sw,.03,.03,sm,0,ly+1.0,sz);box(sw,.03,.03,sm,0,ly+.5,sz)});
+      [[0,1],[sn-1,-1]].forEach(function(b){add(new THREE.BoxGeometry(Math.hypot(sbay,2.5),.03,.03),sm,sx0+(b[0]+.5)*sbay,1.25,sz,0,0,b[1]*Math.atan2(2.5,sbay))});
+    }
+
+    // tuiles en relief (trous : cheminée, velux, panneaux)
+    if(S.sh!=='pl'){
+      var holes=[],chx=Math.min(2.3,W*.3);
+      if(S.ch)holes.push([chx-.6,chx+.6,.15-.6,.15+.6]);
+      if(S.vx)[-Math.min(1.9,W*.25),-Math.min(.7,W*.09)].forEach(function(v){holes.push([v-.55,v+.55,e*.5-.8,e*.5+.8])});
+      if(S.so){var fr3=S.sh==='g1',np3=S.sh==='g2'?4:3,zc3=fr3?e*.5:-e*.5,cx3=fr3?1.4:0,hw3=np3*1.1/2+.1;holes.push([cx3-hw3,cx3+hw3,zc3-.95,zc3+.95])}
+      buildTiles(faces,holes,rc);
+    }
+
+    // garage détaillé
+    if(S.ga){
+      var gx=-(W/2+1.8);
+      wbox(3.4,2.4,4.6,gx,1.2,0);
+      box(3.7,.14,5,roofTop,gx,2.5,0,.1);
+      // porte garage sectionnelle
+      box(2.5,2.1,.1,std('#d8d4cc',.7),gx,1.17,2.35);
+      for(var gi=0;gi<4;gi++)box(2.4,.04,.02,std('#b0aaa0',.6),gx,.54+gi*.42,2.42);
+      box(.15,.15,.08,black,gx+1.1,1.15,2.42);
+      win(gx,1.5,-2.3,Math.PI,.8,.6,false);
+    }
+
+    var dc0=grp.children.length;
+    // clôture basse, trottoir, rue
+    var fl2=Math.max(6.8,W*.9);[-1,1].forEach(function(q){box(fl2,.6,.2,stone,q*(1.1+fl2/2),.3,fz+5.2)});
+    [-1,1].forEach(function(q){box(.3,1.0,.3,stone,q*1.0,.5,fz+5.2);box(.4,.06,.4,edge,q*1.0,1.03,fz+5.2)});
+    box(60,.1,2.2,std('#c9c5bc',.95),0,.05,fz+6.5);
+    box(60,.14,.14,stone,0,.07,fz+7.65);
+    box(60,.04,5.2,std('#4b4e52',.95),0,.02,fz+10.3);
+    for(var di=-9;di<=9;di++)box(1.2,.045,.12,std('#e8e4dc',.9),di*3,.03,fz+10.3);
+    add(new THREE.CylinderGeometry(.06,.07,4.2,8),std('#2e3236',.5,.5),-6,2.1,fz+7.2);
+    box(1.0,.06,.06,std('#2e3236',.5,.5),-5.5,4.15,fz+7.2);
+    add(new THREE.SphereGeometry(.16,10,8),new THREE.MeshStandardMaterial({color:'#fff2c4',emissive:'#ffe9a0',emissiveIntensity:.6}),-5.0,4.05,fz+7.2);
+    var carm=std('#3a5f8c',.35,.35);
+    box(4.2,.6,1.8,carm,3.5,.55,fz+11.3);box(2.2,.55,1.6,carm,3.3,1.1,fz+11.3);box(2.0,.4,1.62,glass,3.3,1.12,fz+11.3);
+    [[-1.35,-.9],[-1.35,.9],[1.35,-.9],[1.35,.9]].forEach(function(w){add(new THREE.CylinderGeometry(.33,.33,.22,14),black,3.5+w[0],.33,fz+11.3+w[1],Math.PI/2)});
+
+    // allée + bordures
+    box(1.5,.05,5.2,std('#d0cbbf',.95),0,.025,fz+2.8);
+    box(1.7,.08,.15,stone,0,.04,fz+.2);
+    // haies
+    box(.7,.9,D+2.5,std('#4a7a3a',.92),W/2+2.05,.45,0);
+    if(!S.ga)box(.7,.9,D+2.5,std('#4a7a3a',.92),-W/2-2.05,.45,0);
+    // buissons
+    [[-2.9,.55],[2.9,.55],[3.6,.45],[-3.5,.5]].forEach(function(b){var m=add(new THREE.SphereGeometry(b[1],10,8),std('#5a8f45',.9),b[0],b[1]*.65,fz+.6);m.scale.y=.75});
+    // pot de fleurs
+    add(new THREE.CylinderGeometry(.18,.14,.25,10),std('#c4785c',.8),1.2,.2,fz+.9);
+    add(new THREE.SphereGeometry(.2,8,6),std('#4a8a3a',.9),1.2,.4,fz+.9);
+    add(new THREE.CylinderGeometry(.18,.14,.25,10),std('#c4785c',.8),-1.2,.2,fz+.9);
+    add(new THREE.SphereGeometry(.2,8,6),std('#4a8a3a',.9),-1.2,.4,fz+.9);
+    // arbres
+    [[8.5,1.5,1.2],[-10,0,1],[-8.5,-4,1.1],[9,-3.5,1]].map(function(t){return [t[0]*K,t[1]*K,t[2]]}).forEach(function(t,ti){
+      add(new THREE.CylinderGeometry(.14,.22,t[2]*1.3,8),wood,t[0],t[2]*.65,t[1]);
+      add(new THREE.SphereGeometry(t[2],10,8),std(['#3f6e31','#4a7a3a','#5b8c43','#4a6e38'][ti],.95),t[0],t[2]*1.6,t[1]);
+    });
+    // boîte aux lettres
+    box(.12,.35,.08,std('#2a4a7a',.6),2.8,.5,fz+1.8);
+    box(.04,.7,.04,std('#888',.5),2.8,.35,fz+1.8);
+
+    for(var di3=dc0;di3<grp.children.length;di3++)grp.children[di3].visible=S.dc;
+    labels=[];
+    var fm=function(x){return n1(x)+' m'},flat2=S.sh==='pl';
+    if(S.gr){var gh=new THREE.GridHelper(Math.round(40*K),Math.round(40*K),0xffffff,0xcfe3bd);gh.position.y=.03;gh.material.transparent=true;gh.material.opacity=.3;grp.add(gh)}
+    if(S.fr&&!flat2){buildFrame(faces);if(S.sh==='g2')buildTrusses()}
+    if(S.dm){
+      var dm1=new THREE.LineBasicMaterial({color:0xffd23f,depthTest:false}),dm2=new THREE.MeshBasicMaterial({color:0xffd23f,depthTest:false});
+      var dl=function(a,b,t){var ln=new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,b]),dm1);ln.renderOrder=20;grp.add(ln);[a,b].forEach(function(p){var sp2=new THREE.Mesh(new THREE.SphereGeometry(.07,8,6),dm2);sp2.position.copy(p);sp2.renderOrder=21;grp.add(sp2)});labels.push({p:a.clone().add(b).multiplyScalar(.5),t:t,c:'dim'})};
+      dl(V(-W/2,.05,fz+1.5),V(W/2,.05,fz+1.5),'Largeur '+fm(W));
+      dl(V(W/2+.9,.05,-D/2),V(W/2+.9,.05,D/2),'Profondeur '+fm(D));
+      dl(V(W/2+.5,0,fz+.3),V(W/2+.5,H,fz+.3),'Égout '+fm(H));
+      if(!flat2){
+        dl(V(W/2+.5,0,-D*.1),V(W/2+.5,H+r,-D*.1),'Faîtage '+fm(H+r));
+        labels.push({p:V(W*.12,sy(e*.5)+.45,e*.5+.35),t:'Pente '+Math.round(sa*180/Math.PI)+'° ('+Math.round(Math.tan(sa)*100)+' %)',c:'dim'});
+      }
+      labels.push({p:V(0,H+(flat2?.8:r+.9),0),t:'Toiture '+n1(calcM2())+' m²',c:'dim'});
+    }
+    if(S.lg){
+      var tg=function(p,t){labels.push({p:p,t:t,c:'tag'})};
+      if(flat2){tg(V(W/2+.2,H+.5,0),'Acrotère');tg(V(0,H+.35,0),MATS[S.m].n)}
+      else{
+        tg(V(0,H+r+.4,S.sh==='g1'?-e+.05:0),'Faîtage');
+        tg(V(-W*.3,sy(e*.4)+.5,e*.4+.2),MATS[S.m].n);
+        tg(V(W*.25,H-.05,e+.25),'Gouttière');
+        tg(V(W/2-.08,H*.5,fz+.35),'Descente EP');
+        if(S.sh==='g2')tg(V(rw/2+.1,H+r*.5,e*.45),'Rive');
+        if(S.ch)tg(V(Math.min(2.3,W*.3),sy(.15)+1.9,.15),'Souche et solin');
+        if(S.vx)tg(V(-Math.min(1.9,W*.25),sy(e*.5)+.55,e*.5+.2),'Velux');
+        if(S.so){var zc4=S.sh==='g1'?e*.5:-e*.5;tg(V(S.sh==='g1'?1.4:0,sy(zc4)+.7,zc4+(S.sh==='g1'?.2:-.2)),'Panneaux PV')}
+      }
+      if(S.fr&&S.sh==='g2')tg(V(0,H+r*.5,.3),'Poinçon');
+      tg(V(0,.2,fz+.3),'Soubassement');
+      if(S.sf)tg(V(0,2.6,fz+1.0),'Échafaudage');
+    }
+    tgt.set(S.ga?-1.2:0,H*.4+.5,0);
+    if(doPose){doPose=false;startPoseAnim()}else revealU.value=1;
+    applyReveal();applyView();
+  }
+
+  function sum(){
+    var col=MATS[S.m].c[S.c],wall=WALLS[S.w],on=[S.et&&'étage',S.ga&&'garage',S.ch&&'cheminée',S.vx&&S.sh!=='pl'&&'fenêtres de toit',S.so&&'panneaux solaires',S.sf&&'échafaudage'].filter(Boolean),est=calcM2();
+    var surfEl=document.getElementById('surf'),m2=surfEl?parseFloat(surfEl.value)||est:est;
+    var estEl=document.getElementById('surf-est');if(estEl)estEl.textContent=est;
+    var t=SH[S.sh]+', '+MATS[S.m].n.toLowerCase()+', '+col[0].toLowerCase()+', façade '+WST[S.ws].toLowerCase()+' '+wall[0].toLowerCase()+(on.length?', avec '+on.join(', '):'')+'.';
+    document.getElementById('sum').textContent=t;
+    renderMetre();var dv=document.getElementById('devis');if(dv)dv.href='mailto:GL.couverture.lille@gmail.com?subject='+encodeURIComponent('Demande de devis - toiture')+'&body='+encodeURIComponent('Bonjour, je souhaite un devis pour une toiture.\n'+t);
+    return t;
+  }
+
+  function btn(cls,label,on,fn,bg){var b=document.createElement('button');b.className=cls;b.setAttribute('aria-pressed',!!on);if(bg){b.style.background=bg;b.title=label;b.setAttribute('aria-label',label)}else b.textContent=label;b.onclick=fn;return b}
+  function ui(){
+    var sp=document.getElementById('shapes'),a=document.getElementById('mats'),b=document.getElementById('cols'),d=document.getElementById('walls'),o=document.getElementById('opts');
+    sp.innerHTML=a.innerHTML=b.innerHTML=d.innerHTML=o.innerHTML='';
+    Object.keys(SH).forEach(function(k){sp.appendChild(btn('opt',SH[k],k===S.sh,function(){S.sh=k;if(!okm(S.m)){S.m=Object.keys(MATS).filter(okm)[0];S.c=0}doPose=true;ui();build();sum()}))});
+    Object.keys(MATS).filter(okm).forEach(function(k){a.appendChild(btn('opt',MATS[k].n,k===S.m,function(){S.m=k;S.c=0;doPose=true;ui();build();sum()}))});
+    MATS[S.m].c.forEach(function(x,i){b.appendChild(btn('sw',x[0],i===S.c,function(){S.c=i;doPose=true;ui();build();sum()},x[1]))});
+    WALLS.forEach(function(x,i){d.appendChild(btn('sw',x[0],i===S.w,function(){S.w=i;ui();build();sum()},x[1]))});
+    [['et','Étage'],['ga','Garage'],['ch','Cheminée'],['vx','Velux'],['so','Solaire'],['sf','Échafaudage']].forEach(function(x){var ob=btn('opt',x[1],!!S[x[0]],function(){S[x[0]]=!S[x[0]];ui();build();sum()});if(x[0]==='vx'&&S.sh==='pl')ob.disabled=true;o.appendChild(ob)});
+    var dp=document.getElementById('disp');
+    if(dp){dp.innerHTML='';[['dm','Cotes'],['lg','Légendes'],['gr','Grille'],['fr','Charpente'],['wf','Fil de fer'],['dc','Décor'],['sd','Ombres']].forEach(function(x){var b2=btn('opt',x[1],!!S[x[0]],function(){S[x[0]]=!S[x[0]];ui();build();sum()});if(x[0]==='fr'&&S.sh==='pl')b2.disabled=true;dp.appendChild(b2)})}
+    var wst=document.getElementById('wst');if(wst){wst.innerHTML='';Object.keys(WST).forEach(function(k){wst.appendChild(btn('opt',WST[k],k===S.ws,function(){S.ws=k;ui();build();sum()}))})}
+    document.getElementById('pitch').disabled=S.sh==='pl';
+    sum();
+  }
+
+  try{
+    ren=new THREE.WebGLRenderer({antialias:true,alpha:false});
+    ren.shadowMap.enabled=true;ren.shadowMap.type=THREE.PCFSoftShadowMap;
+    ren.outputEncoding=THREE.sRGBEncoding;ren.toneMapping=THREE.ACESFilmicToneMapping;ren.toneMappingExposure=1.15;
+    view.insertBefore(ren.domElement,view.firstChild);
+    sc=new THREE.Scene();
+    var skc=document.createElement('canvas');skc.width=4;skc.height=256;var skg=skc.getContext('2d'),sgr=skg.createLinearGradient(0,0,0,256);sgr.addColorStop(0,'#5f9fd2');sgr.addColorStop(.6,'#a8cfe0');sgr.addColorStop(1,'#dbe9ee');skg.fillStyle=sgr;skg.fillRect(0,0,4,256);
+    var skt=new THREE.CanvasTexture(skc);skt.encoding=THREE.sRGBEncoding;sc.background=skt;sc.fog=new THREE.Fog('#c8dde8',40,85);
+    cam=new THREE.PerspectiveCamera(40,1.6,.4,100);tgt=new THREE.Vector3();
+    grp=new THREE.Group();sc.add(grp);
+    sc.add(new THREE.HemisphereLight(0xfff4e8,0x6a8a50,.85));
+    var sun=new THREE.DirectionalLight(0xfff0d8,1.1);sun.position.set(12,18,10);sun.castShadow=true;sunRef=sun;
+    sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=sun.shadow.camera.bottom=-16;sun.shadow.camera.right=sun.shadow.camera.top=16;sun.shadow.bias=-.0004;sc.add(sun);
+    var gc=document.createElement('canvas');gc.width=gc.height=256;var gg=gc.getContext('2d'),gi;gg.fillStyle='#6a9a52';gg.fillRect(0,0,256,256);
+    for(gi=0;gi<2200;gi++){gg.fillStyle=gi%2?'rgba(90,140,70,.35)':'rgba(130,175,95,.3)';gg.fillRect(Math.random()*256,Math.random()*256,2,3)}
+    var gt2=new THREE.CanvasTexture(gc);gt2.wrapS=gt2.wrapT=THREE.RepeatWrapping;gt2.repeat.set(16,16);gt2.encoding=THREE.sRGBEncoding;
+    var gnd=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({map:gt2,roughness:1}));
+    var clouds=new THREE.Group(),clm=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.88,fog:false}),ci,cj;
+    for(ci=0;ci<7;ci++){var cg=new THREE.Group();for(cj=0;cj<4;cj++){var cs=new THREE.Mesh(new THREE.SphereGeometry(2+(cj%2)*1.1,10,8),clm);cs.position.set(cj*2.2,(cj%2)*.6,0);cs.scale.y=.55;cg.add(cs)}
+      cg.position.set(-55+ci*18,24+(ci%3)*4,-32-(ci%2)*14);clouds.add(cg)}
+    sc.add(clouds);gndRef=gnd;gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
+    new ResizeObserver(function(){var w=view.clientWidth,h=view.clientHeight;if(!w||!h)return;ren.setPixelRatio(Math.min(devicePixelRatio||1,2));ren.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}).observe(view);
+    new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(view);
+    var lx=0,ly=0;
+    view.addEventListener('pointerdown',function(e){if(e.target.closest&&e.target.closest('.zoom-ctl,.vtools'))return;drag=true;lx=e.clientX;ly=e.clientY;view.style.cursor='grabbing';try{view.setPointerCapture(e.pointerId)}catch(x){}});
+    view.addEventListener('pointermove',function(e){if(!drag)return;az-=(e.clientX-lx)*.008;el=Math.max(.04,Math.min(1.5,el+(e.clientY-ly)*.004));lx=e.clientX;ly=e.clientY});
+    ['pointerup','pointercancel'].forEach(function(t){view.addEventListener(t,function(){drag=false;view.style.cursor='grab'})});
+    view.addEventListener('wheel',function(e){e.preventDefault();dist=Math.max(7,Math.min(DM,dist+e.deltaY*.02))},{passive:false});
+    document.getElementById('z-in').onclick=function(e){e.stopPropagation();dist=Math.max(7,dist-2)};
+    document.getElementById('z-out').onclick=function(e){e.stopPropagation();dist=Math.min(DM,dist+2)};
+    document.getElementById('z-rst').onclick=function(e){e.stopPropagation();dist=Math.min(DM,16*K)};
+    document.getElementById('pitch').oninput=function(){S.r=this.value/60;build();sum()};
+    var surfIn=document.getElementById('surf');
+    if(surfIn){var rb2=function(){clearTimeout(fitT);fitT=setTimeout(function(){build();sum()},220)};surfIn.oninput=rb2;surfIn.onchange=function(){clearTimeout(fitT);build();sum()}}
+    var rt=document.getElementById('rot');rt.setAttribute('aria-pressed',auto);rt.onclick=function(){auto=!auto;this.setAttribute('aria-pressed',auto)};
+    document.getElementById('fs').onclick=function(){try{document.fullscreenElement?document.exitFullscreen():view.requestFullscreen()}catch(x){}};
+    mgrp=new THREE.Group();sc.add(mgrp);
+    var vt=document.getElementById('vtools')||document.createElement('div'),sx=0,sy0=0;
+    VIEWS.forEach(function(v){var b=document.createElement('button');b.type='button';b.className='vt';b.textContent=v[0];b.onclick=function(){goView(v[1],v[2])};vt.appendChild(b)});
+    var bm=document.createElement('button');bm.type='button';bm.className='vt';bm.textContent='Mesurer';bm.setAttribute('aria-pressed',false);
+    bm.onclick=function(){ms=!ms;bm.setAttribute('aria-pressed',ms);if(ms){clearMeasure();hint('Cliquez un 1er point sur la maison.')}else{clearMeasure();relabel();hint('')}};
+    vt.appendChild(bm);
+    var bc=document.createElement('button');bc.type='button';bc.className='vt';bc.textContent='Capture';
+    bc.onclick=function(){try{ren.render(sc,cam);var a=document.createElement('a');a.href=ren.domElement.toDataURL('image/png');a.download='simulation-toiture-gl-couverture.png';document.body.appendChild(a);a.click();a.remove();hint('Image enregistrée.');setTimeout(function(){hint(ms?'Cliquez un point.':'')},1800)}catch(x){hint('Capture indisponible sur cet appareil.')}};
+    vt.appendChild(bc);
+    view.addEventListener('pointerdown',function(e){tw=null;sx=e.clientX;sy0=e.clientY});
+    view.addEventListener('pointerup',function(e){if(ms&&Math.hypot(e.clientX-sx,e.clientY-sy0)<5&&!(e.target.closest&&e.target.closest('.vtools,.zoom-ctl')))pick(e)});
+    view.addEventListener('keydown',function(e){
+      var k=e.key,used=true;tw=null;
+      if(k==='ArrowLeft')az+=.08;else if(k==='ArrowRight')az-=.08;else if(k==='ArrowUp')el=Math.min(1.5,el+.05);else if(k==='ArrowDown')el=Math.max(.04,el-.05);
+      else if(k==='+'||k==='=')dist=Math.max(7,dist-2);else if(k==='-')dist=Math.min(DM,dist+2);else if(k==='0')dist=Math.min(DM,16*K);else used=false;
+      if(used)e.preventDefault();
+    });
+    var hr=document.getElementById('hour'),hv=document.getElementById('hourv');
+    if(hr)hr.oninput=function(){S.hr=parseFloat(this.value);hv.textContent=Math.floor(S.hr)+' h '+(S.hr%1?'30':'00');updateSun()};
+    (function loop(){requestAnimationFrame(loop);if(!vis)return;if(auto&&!drag)az+=.0025;clouds.children.forEach(function(c){c.position.x+=.012;if(c.position.x>60)c.position.x=-60});stepTween();
+      cam.position.set(tgt.x+dist*Math.sin(az)*Math.cos(el),tgt.y+dist*Math.sin(el),tgt.z+dist*Math.cos(az)*Math.cos(el));
+      cam.lookAt(tgt);ren.render(sc,cam);updLabels()})();
+    ok=true;doPose=true;build();ui();
+  }catch(err){console.warn(err);view.innerHTML='<p style="padding:2rem;color:#f6efe6">Simulateur 3D indisponible sur cet appareil.</p>'}
+})();
+
+var REAL=[
+  ['https://images.unsplash.com/photo-1767544050173-e0101f579932?w=800&q=80','Ardoise naturelle','Texture ardoise — couverture durable'],
+  ['https://images.pexels.com/photos/15562216/pexels-photo-15562216.jpeg?auto=compress&cs=tinysrgb&w=800','Tuile canal','Tuiles terre cuite en rangs'],
+  ['https://images.pexels.com/photos/20121117/pexels-photo-20121117.jpeg?auto=compress&cs=tinysrgb&w=800','Toits en tuile','Paysage urbain, couvertures traditionnelles'],
+  ['https://images.unsplash.com/photo-1782588897893-a64bc3b9e430?w=800&q=80','Ardoise texturée','Détail de pose en losanges'],
+  ['https://images.pexels.com/photos/5246596/pexels-photo-5246596.jpeg?auto=compress&cs=tinysrgb&w=800','Tuiles colorées','Variations de teintes et patine'],
+  ['https://images.pexels.com/photos/9289942/pexels-photo-9289942.jpeg?auto=compress&cs=tinysrgb&w=800','Couverture moderne','Tuiles vertes et fenêtres de toit']
+],g='';
+REAL.forEach(function(x){g+='<div class="card"><img src="'+x[0]+'" alt="'+x[1]+'" loading="lazy"><p><b>'+x[1]+'</b>'+x[2]+'</p></div>'});
+var galEl=document.getElementById('gal');if(galEl)galEl.innerHTML=g;
+
+var BA=[
+  {
+    before:'https://images.pexels.com/photos/4015870/pexels-photo-4015870.jpeg?auto=compress&cs=tinysrgb&w=600',
+    after:'https://images.pexels.com/photos/15562216/pexels-photo-15562216.jpeg?auto=compress&cs=tinysrgb&w=600',
+    title:'Démoussage tuiles',
+    text:'Élimination mousses, lichens et salissures — tuiles de nouveau visibles et saines.'
+  },
+  {
+    before:'https://images.unsplash.com/photo-1744044155829-610dded4cead?w=600&q=80',
+    after:'https://images.unsplash.com/photo-1767544050173-e0101f579932?w=600&q=80',
+    title:'Nettoyage gouttières & rives',
+    text:'Gouttières dégagées, évacuation des eaux rétablie, risques d’infiltration réduits.'
+  },
+  {
+    before:'https://images.pexels.com/photos/5993912/pexels-photo-5993912.jpeg?auto=compress&cs=tinysrgb&w=600',
+    after:'https://images.unsplash.com/photo-1782588897893-a64bc3b9e430?w=600&q=80',
+    title:'Traitement anti-mousse',
+    text:'Toiture assainie, aspect rénové, durée de vie de la couverture prolongée.'
+  },
+  {
+    before:'https://images.pexels.com/photos/4015870/pexels-photo-4015870.jpeg?auto=compress&cs=tinysrgb&w=600',
+    after:'https://images.pexels.com/photos/15964928/pexels-photo-15964928.jpeg?auto=compress&cs=tinysrgb&w=600',
+    title:'Entretien complet',
+    text:'Nettoyage + contrôle des points sensibles (noues, solins, faîtage).'
+  }
+],ba='';
+BA.forEach(function(x){
+  ba+='<div class="ba-card"><div class="ba-pair"><img src="'+x.before+'" alt="Avant — '+x.title+'" loading="lazy"><img src="'+x.after+'" alt="Après — '+x.title+'" loading="lazy"></div><div class="ba-lbl"><span>Avant</span><span>Après</span></div><p><b>'+x.title+'</b>'+x.text+'</p></div>';
+});
+var baEl=document.getElementById('ba-grid');if(baEl)baEl.innerHTML=ba;
+
+function mk(){var v=function(i){return document.getElementById(i).value.trim()},
+  b='Nom : '+v('f-nom')+'\nTéléphone : '+v('f-tel')+'\nE-mail : '+v('f-mail')+'\nVille : '+v('f-ville')+'\nTravaux : '+v('f-type')+'\n\n'+v('msg');
+  document.getElementById('send').href='mailto:GL.couverture.lille@gmail.com?subject='+encodeURIComponent('Demande de devis - '+v('f-type'))+'&body='+encodeURIComponent(b)}
+if(document.getElementById('f-nom'))['f-nom','f-tel','f-mail','f-ville','f-type','msg'].forEach(function(i){var e=document.getElementById(i);e.addEventListener('input',function(){if(i==='msg')delete e.dataset.auto;mk()});e.addEventListener('change',mk)});
+if(document.getElementById('f-nom'))mk();
+(function(){var fd=document.getElementById('float-devis'),fm=document.getElementById('formulaire');
+  if(fd&&fm&&('IntersectionObserver' in window)){
+    new IntersectionObserver(function(en){fd.style.opacity=en[0].isIntersecting?'0':'1';fd.style.pointerEvents=en[0].isIntersecting?'none':'auto';fd.style.transition='opacity .3s'},{threshold:.15}).observe(fm);
+  }
+  // onglets actifs au scroll
+  var links=document.querySelectorAll('nav a[href^="#"]'),secs=[];
+  links.forEach(function(a){var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el)secs.push({a:a,el:el})});
+  function mark(){
+    var y=window.scrollY+120,cur=secs[0]&&secs[0].a;
+    secs.forEach(function(s){if(s.el.offsetTop<=y)cur=s.a});
+    links.forEach(function(a){a.classList.toggle('active',a===cur&&!a.classList.contains('tab'))});
+  }
+  window.addEventListener('scroll',mark,{passive:true});mark();
+})();
+(function(){
+  var Svc=[
+    'Réparation de tuiles cassées','Remplacement d’ardoises','Recherche de fuite','Reprise d’étanchéité cheminée',
+    'Reprise d’étanchéité velux','Réfection de noue','Réparation de faîtage','Pose de closoirs ventilés',
+    'Remplacement de rives','Réparation après tempête','Urgence toiture 24h','Contrôle post-tempête',
+    'Dépose de couverture','Pose de couverture ardoise','Pose de tuile canal','Pose de tuile plate',
+    'Pose de shingles / bardeaux','Pose de zinc à joint debout','Pose de bac acier','Pose de membrane EPDM',
+    'Toiture végétalisée','Toiture gravier','Réfection complète de toiture','Surélévation de toiture',
+    'Changement de pente','Création de lucarne','Pose de chien-assis','Pose de fenêtre de toit',
+    'Remplacement de velux','Étanchéité autour de velux','Pose de lanterneau','Habillage de rive en zinc',
+    'Bandeau de rive','Solin de cheminée','Solin de mur','Noue en zinc',
+    'Gouttière zinc neuve','Gouttière PVC','Gouttière alu','Descente d’eau pluviale',
+    'Remplacement de dauphin','Débouchage de gouttière','Réparation de gouttière fuyarde','Pose de crapaudine',
+    'Garde-neige','Pare-feuilles gouttière','Chéneau encastré','Collecteur d’eau de pluie',
+    'Démoussage toiture','Nettoyage de toiture','Traitement anti-mousse','Hydrofugation de toiture',
+    'Nettoyage de gouttières','Nettoyage de chéneaux','Élagage d’accès toiture','Inspection annuelle',
+    'Diagnostic de toiture','Rapport photo drone','Contrôle de charpente','Traitement de charpente',
+    'Renforcement de charpente','Remplacement de liteaux','Pose d’écran de sous-toiture','Isolation de combles perdus',
+    'Isolation de combles aménagés','Isolation par l’extérieur (sarking)','Pose de pare-vapeur','Ventilation de comble',
+    'Création d’entrée d’air','Sortie de toiture VMC','Sortie de poêle / conduit','Habillage de cheminée',
+    'Réfection de couronnement','Chapeau de cheminée','Étanchéité terrasse','Réfection de toit-terrasse',
+    'Membrane bitume','Membrane liquide','Joint de dilatation toiture','Réparation de bac acier',
+    'Reprise de joint debout zinc','Patine de zinc','Peinture de bac acier','Remplacement de plaque fibro',
+    'Désamiantage couverture (coordination)','Pose support panneaux solaires','Renforcement pour photovoltaïque','Passage de câbles toiture',
+    'Étanchéité de balcon','Réfection d’auvent','Couverture de véranda','Toiture de garage',
+    'Toiture d’abri de jardin','Couverture de préau','Bâtiment agricole (bac)','Hangar industriel (étanchéité)',
+    'Réparation de toiture en pente','Réparation de toiture plate','Remise en état après sinistre','Expertise assurance (constat)',
+    'Devis détaillé gratuit','Visite technique à domicile','Urgence infiltration','Mise hors d’eau provisoire',
+    'Bâchage d’urgence','Échafaudage de toiture','Protection des abords','Évacuation de gravats',
+    'Tri et recyclage de matériaux','Pose de faîtières ventilées','Pose de tuiles de rive','Pose de tuiles de courant',
+    'Pose de tuiles de couvert','Arêtier en zinc','Arêtier en tuile','Noue fermée / noue ouverte',
+    'Égout de toiture','Larmier','Bavette de raccordement','Habillage de bandeau',
+    'Sous-face de toiture','Pose de volige','Remplacement de volige pourrie','Traitement anti-insectes charpente',
+    'Traitement anti-champignons','Séchage de charpente humide','Contrôle d’humidité combles','Pose de détecteur de fuite',
+    'Entretien contractuel annuel','Contrat d’entretien semi-annuel','Nettoyage après travaux','Finitions esthétiques zinc',
+    'Rejointoiement de faîtage',
+    'Réparation de gouttière pendante',
+    'Remplacement de gouttière pendante',
+    'Désobstruction de avaloir',
+    'Pose de gouttière demi-ronde',
+    'Intervention d’urgence sur faîtage',
+    'Réparation provisoire de zinc',
+    'Dépannage de solin',
+    'Nettoyage de tuiles à emboîtement',
+    'Pose de closoir',
+    'Traitement anti-pourriture des pare-vapeur',
+    'Rejointoiement de souche de cheminée',
+    'Nettoyage de chéneau',
+    'Remplacement de ferme de charpente',
+    'Désobstruction de gargouille',
+    'Renforcement de sablière',
+    'Contrôle de égout de toiture',
+    'Dépannage de gouttière',
+    'Pose de échelle de toit',
+    'Contrôle de chevalet',
+    'Traitement anti-pourriture des chevalet',
+    'Désobstruction de gouttière en aluminium',
+    'Diagnostic de charpente',
+    'Remplacement de poinçon',
+    'Visite annuelle de toiture',
+    'Pose de ferme de charpente',
+    'Remplacement de faîtage',
+    'Remplacement de chevalet',
+    'Remplacement de panne sablière',
+    'Traitement anti-pourriture des panne faîtière',
+    'Contrôle de abergement',
+    'Nettoyage de gouttière en aluminium',
+    'Renforcement de pare-pluie',
+    'Pose de naissance de descente',
+    'Réparation de chéneau',
+    'Rejointoiement de closoir',
+    'Contrôle de garde-corps de toit',
+    'Réparation de bande de rive',
+    'Rejointoiement de antenne',
+    'Rejointoiement de échelle de toit',
+    'Réparation de noue',
+    'Intervention d’urgence sur fenêtre de toit',
+    'Remplacement de avaloir',
+    'Nettoyage de zinc à joint debout',
+    'Nettoyage de tuiles romanes',
+    'Remplacement de noue',
+    'Remplacement de panne faîtière',
+    'Isolation en laine de bois',
+    'Renforcement de volige',
+    'Réparation de tuiles plates',
+    'Réparation provisoire de bac acier',
+    'Étanchéité de égout de toiture',
+    'Nettoyage de tuiles plates',
+    'Réparation de gouttière en aluminium',
+    'Contrôle après grêle',
+    'Pose de collier de descente',
+    'Isolation par l’extérieur',
+    'Contrôle de tuile de ventilation',
+    'Désobstruction de naissance de descente',
+    'Réparation provisoire de descente d’eau',
+    'Intervention d’urgence sur bac acier',
+    'Ajustement de dauphin',
+    'Désobstruction de gouttière PVC',
+    'Nettoyage de trop-plein',
+    'Dépannage de membrane',
+    'Réparation provisoire de gouttière',
+    'Nettoyage des gouttières',
+    'Réparation de descente d’eau pluviale',
+    'Contrôle de tuiles romanes',
+    'Désobstruction de chéneau',
+    'Contrôle de coyau',
+    'Traitement anti-pourriture des liteau',
+    'Contrôle de bande de rive',
+    'Contrôle de pare-pluie',
+    'Dépose de tuiles plates',
+    'Remplacement de chevron',
+    'Contrôle de panne faîtière',
+    'Isolation en sarking',
+    'Désobstruction de collier de descente',
+    'Bâchage de toiture',
+    'Remplacement de closoir',
+    'Ajustement de gouttière en zinc',
+    'Remplacement de chatière de ventilation',
+    'Contrat d’entretien de toiture',
+    'Remplacement de abergement',
+    'Réparation de gouttière en zinc',
+    'Rejointoiement de fenêtre de toit',
+    'Mise hors d’eau',
+    'Contrôle de toiture végétalisée',
+    'Ajustement de gouttière PVC',
+    'Dépannage de descente d’eau',
+    'Rejointoiement de arêtier',
+    'Pose de lucarne',
+    'Remplacement de gouttière demi-ronde',
+    'Réparation de tuiles romanes',
+    'Traitement anti-mousse des tuiles',
+    'Nettoyage de gargouille',
+    'Réparation de naissance de descente',
+    'Rejointoiement de paratonnerre',
+    'Pose de tuiles plates',
+    'Remplacement de solin',
+    'Contrôle de liteau',
+    'Traitement anti-insectes des poinçon',
+    'Intervention d’urgence sur ardoise',
+    'Remplacement de entrait',
+    'Remplacement de lucarne',
+    'Renforcement de chevalet',
+    'Réparation de dauphin',
+    'Isolation en fibre de bois',
+    'Étanchéité de solin',
+    'Remplacement de contre-chevron',
+    'Rejointoiement de trappe de toit',
+    'Dépose de toiture végétalisée',
+    'Rejointoiement de crochet à neige',
+    'Réparation de rive',
+    'Traitement anti-insectes des panne intermédiaire',
+    'Pose de antenne',
+    'Nettoyage de gouttière nantaise',
+    'Renforcement de panne faîtière',
+    'Contrôle de ferme de charpente',
+    'Pose de noue',
+    'Redressement de pare-vapeur',
+    'Pose de tuiles mécaniques',
+    'Pose de tuile de ventilation',
+    'Dépannage de fenêtre de toit',
+    'Traitement anti-pourriture des sous-toiture HPV',
+    'Réparation de larmier',
+    'Remplacement de tuiles canal',
+    'Ajustement de collier de descente',
+    'Étanchéité de chatière de ventilation',
+    'Nettoyage de tuiles canal',
+    'Contrôle de souche de cheminée',
+    'Étanchéité de échelle de toit',
+    'Traitement anti-pourriture des pare-pluie',
+    'Réparation de paratonnerre',
+    'Étanchéité de crochet à neige',
+    'Désobstruction de gouttière pendante',
+    'Réparation de lucarne',
+    'Pose de contre-chevron',
+    'Contrôle de tuiles plates',
+    'Pose de bavette',
+    'Contrôle de closoir',
+    'Remplacement de crochet à neige',
+    'Réparation provisoire de noue',
+    'Traitement anti-pourriture des volige',
+    'Pose de gouttière PVC',
+    'Ajustement de naissance de descente',
+    'Traitement anti-pourriture des poinçon',
+    'Réparation de échelle de toit',
+    'Nettoyage de gouttière PVC',
+    'Contrôle de échelle de toit',
+    'Contrôle de zinc à joint debout',
+    'Pose de gouttière nantaise',
+    'Pose de arbalétrier',
+    'Remplacement de volige',
+    'Contrôle de entrait',
+    'Renforcement de panne intermédiaire',
+    'Contrôle de tuiles canal',
+    'Dépose de tuiles canal',
+    'Traitement anti-insectes des liteau',
+    'Rejointoiement de panneau solaire',
+    'Réparation de crochet à neige',
+    'Renforcement de sous-toiture HPV',
+    'Redressement de liteau',
+    'Remplacement de fenêtre de toit',
+    'Pose de dauphin',
+    'Traitement anti-insectes des sablière',
+    'Contrôle de jambe de force',
+    'Désobstruction de crapaudine',
+    'Redressement de entrait',
+    'Remplacement de antenne',
+    'Réparation de ardoises fibrociment',
+    'Ajustement de gouttière nantaise',
+    'Traitement anti-pourriture des sablière',
+    'Remplacement de trop-plein',
+    'Nettoyage de ardoises fibrociment',
+    'Rejointoiement de larmier',
+    'Nettoyage de descente d’eau pluviale',
+    'Pose de entrait',
+    'Contrôle de solin',
+    'Nettoyage de tuiles mécaniques',
+    'Remplacement de panne intermédiaire',
+    'Nettoyage de avaloir',
+    'Traitement anti-insectes des panne sablière',
+    'Contrôle de bardeaux bitumés',
+    'Étanchéité de abergement',
+    'Ajustement de gouttière pendante',
+    'Réparation de tuile de ventilation',
+    'Réparation de solin',
+    'Renforcement de pare-vapeur',
+    'Remplacement de échelle de toit',
+    'Contrôle de tuiles mécaniques',
+    'Réparation de garde-corps de toit',
+    'Nettoyage de gouttière demi-ronde',
+    'Rejointoiement de garde-corps de toit',
+    'Réparation de fenêtre de toit',
+    'Ajustement de regard pluvial',
+    'Remplacement de naissance de descente',
+    'Réparation de trop-plein',
+    'Réparation provisoire de faîtage',
+    'Ajustement de chéneau',
+    'Traitement anti-pourriture des jambe de force',
+    'Nettoyage de bac acier',
+    'Traitement anti-insectes des chevron',
+    'Traitement anti-insectes des contre-chevron',
+    'Redressement de pare-pluie',
+    'Redressement de contre-chevron',
+    'Traitement anti-insectes des sous-toiture HPV',
+    'Pose de jambe de force',
+    'Contrôle de rive',
+    'Désobstruction de dauphin',
+    'Remplacement de crapaudine',
+    'Intervention d’urgence sur solin',
+    'Étanchéité de rive',
+    'Contrôle de antenne',
+    'Ajustement de avaloir',
+    'Réparation de crapaudine',
+    'Renforcement de panne sablière',
+    'Rejointoiement de lucarne',
+    'Contrôle de faîtage',
+    'Réparation provisoire de ardoise',
+    'Réparation provisoire de cheminée',
+    'Remplacement de tuiles romanes',
+    'Dépannage de zinc',
+    'Remplacement de solive de combles',
+    'Contrôle de panne sablière',
+    'Traitement anti-pourriture des contre-chevron',
+    'Remplacement de regard pluvial',
+    'Réparation de membrane EPDM',
+    'Désobstruction de gouttière en zinc',
+    'Renforcement de poinçon',
+    'Rejointoiement de solin',
+    'Rejointoiement de coyau',
+    'Dépose de membrane EPDM',
+    'Réparation de coyau',
+    'Isolation sous rampants',
+    'Traitement anti-insectes des solive de combles',
+    'Redressement de arbalétrier',
+    'Remplacement de gouttière en aluminium',
+    'Étanchéité de coyau',
+    'Pose de panneau solaire',
+    'Traitement anti-insectes des entrait',
+    'Pose de garde-corps de toit',
+    'Remplacement de pare-vapeur',
+    'Réparation de souche de cheminée',
+    'Remplacement de bavette',
+    'Contrôle de volige',
+    'Contrôle de trappe de toit',
+    'Remplacement de membrane EPDM',
+    'Contrôle de contre-chevron',
+    'Pose de égout de toiture',
+    'Remplacement de arbalétrier',
+    'Redressement de ferme de charpente',
+    'Renforcement de entrait',
+    'Pose de trappe de toit',
+    'Remplacement de trappe de toit',
+    'Dépannage de faîtage',
+    'Réparation de antenne',
+    'Contrôle de sous-toiture HPV',
+    'Réparation de arêtier',
+    'Intervention d’urgence sur noue',
+    'Contrôle de sablière',
+    'Traitement anti-pourriture des chevron',
+    'Étanchéité de noue',
+    'Traitement anti-pourriture des solive de combles',
+    'Étanchéité de trappe de toit',
+    'Démoussage de toiture',
+    'Isolation en ouate de cellulose',
+    'Relevé de toiture',
+    'Remplacement de bardeaux bitumés',
+    'Étanchéité de panneau solaire',
+    'Réparation de coude de descente',
+    'Pose de coude de descente',
+    'Contrôle de solive de combles',
+    'Désobstruction de coude de descente',
+    'Pose de chevalet',
+    'Pose de toiture végétalisée',
+    'Pose de liteau',
+    'Ajustement de gouttière en aluminium',
+    'Redressement de chevron',
+    'Étanchéité de souche de cheminée',
+    'Étanchéité de arêtier',
+    'Pose de abergement',
+    'Intervention d’urgence sur gouttière',
+    'Pose de ardoises fibrociment',
+    'Remplacement de tuiles plates',
+    'Pose de larmier',
+    'Dépose de bac acier',
+    'Intervention d’urgence sur membrane',
+    'Contrôle de arbalétrier',
+    'Désobstruction de regard pluvial',
+    'Pose de tuiles canal',
+    'Isolation de toit plat',
+    'Réparation de tuiles à emboîtement',
+    'Traitement anti-insectes des pare-pluie',
+    'Dépose de zinc à joint debout',
+    'Contrôle de noue',
+    'Nettoyage de gouttière pendante',
+    'Étanchéité de closoir',
+    'Nettoyage de ardoises naturelles',
+    'Pose de solin',
+    'Remplacement de liteau',
+    'Contrôle de panne intermédiaire',
+    'Remplacement de coude de descente',
+    'Réparation de zinc à joint debout',
+    'Étanchéité de bavette',
+    'Pose de coyau',
+    'Pose de panne intermédiaire',
+    'Pare-vapeur de combles',
+    'Hydrofuge sur toiture',
+    'Traitement anti-insectes des volige',
+    'Contrôle de tuiles à emboîtement',
+    'Remplacement de chéneau',
+    'Réparation de toiture végétalisée',
+    'Remplacement de garde-corps de toit',
+    'Réparation provisoire de solin',
+    'Contrôle de chevron',
+    'Étanchéité de larmier',
+    'Ajustement de trop-plein',
+    'Traitement anti-insectes des pare-vapeur',
+    'Remplacement de arêtier',
+    'Réparation de tuiles canal',
+    'Pose de paratonnerre',
+    'Réparation de trappe de toit',
+    'Réparation de égout de toiture',
+    'Nettoyage de gouttière en zinc',
+    'Nettoyage de coude de descente',
+    'Pose de tuiles romanes',
+    'Contrôle de lucarne',
+    'Traitement anti-pourriture des arbalétrier',
+    'Dépannage de ardoise',
+    'Rejointoiement de rive',
+    'Pose de bardeaux bitumés',
+    'Pose de sous-toiture HPV',
+    'Étanchéité de lucarne',
+    'Réparation de abergement',
+    'Étanchéité de tuile de ventilation',
+    'Réparation de gouttière demi-ronde',
+    'Redressement de sablière',
+    'Pose de panne faîtière',
+    'Désobstruction de gouttière nantaise',
+    'Étanchéité de faîtage',
+    'Contrôle de crochet à neige',
+    'Remplacement de gargouille',
+    'Remplacement de coyau',
+    'Traitement anti-insectes des jambe de force',
+    'Pose de rive',
+    'Traitement anti-insectes des chevalet',
+    'Redressement de volige',
+    'Réparation de bavette',
+    'Expertise de toiture',
+    'Pose de souche de cheminée',
+    'Nettoyage de toiture végétalisée',
+    'Remplacement de jambe de force',
+    'Réparation de chatière de ventilation',
+    'Remplacement de sablière',
+    'Remplacement de collier de descente',
+    'Contrôle de membrane EPDM',
+    'Réparation de gouttière PVC',
+    'Remplacement de rive',
+    'Remplacement de tuile de ventilation',
+    'Nettoyage de crapaudine',
+    'Dépose de tuiles romanes',
+    'Étanchéité de bande de rive',
+    'Remplacement de sous-toiture HPV',
+    'Rejointoiement de abergement',
+    'Renforcement de contre-chevron',
+    'Remplacement de paratonnerre',
+    'Pose de descente d’eau pluviale',
+    'Redressement de solive de combles',
+    'Dépannage de tuiles',
+    'Renforcement de arbalétrier',
+    'Réparation de panneau solaire',
+    'Renforcement de chevron',
+    'Réparation provisoire de tuiles',
+    'Contrôle de ardoises naturelles',
+    'Traitement anti-insectes des panne faîtière',
+    'Redressement de panne sablière',
+    'Nettoyage de naissance de descente',
+    'Pose de crochet à neige',
+    'Dépose de bardeaux bitumés',
+    'Intervention d’urgence sur cheminée',
+    'Ajustement de descente d’eau pluviale',
+    'Désobstruction de habillage de bandeau',
+    'Pose de solive de combles',
+    'Pose de gouttière en aluminium',
+    'Rejointoiement de bande de rive',
+    'Traitement anti-pourriture des panne sablière',
+    'Pose de bande de rive',
+    'Renforcement de solive de combles',
+    'Remplacement de habillage de bandeau',
+    'Contrôle après tempête',
+    'Pose de pare-pluie',
+    'Contrôle de ardoises fibrociment',
+    'Redressement de panne faîtière',
+    'Réparation de tuiles mécaniques',
+    'Ajustement de gouttière demi-ronde',
+    'Ajustement de coude de descente',
+    'Intervention d’urgence sur descente d’eau',
+    'Redressement de jambe de force',
+    'Remplacement de pare-pluie',
+    'Rejointoiement de noue',
+    'Dépose de tuiles pour accès aux combles',
+    'Pose de chéneau',
+    'Thermographie de toiture',
+    'Réparation provisoire de membrane',
+    'Remplacement de gouttière PVC',
+    'Étanchéité de paratonnerre',
+    'Remplacement de descente d’eau pluviale',
+    'Renforcement de liteau',
+    'Remplacement de bande de rive',
+    'Réparation de collier de descente',
+    'Pose de trop-plein',
+    'Traitement anti-insectes des ferme de charpente',
+    'Réparation de habillage de bandeau',
+    'Dépose de ardoises fibrociment',
+    'Contrôle de fenêtre de toit',
+    'Contrôle de pare-vapeur',
+    'Pose de panne sablière',
+    'Isolation du plancher de combles',
+    'Renforcement de jambe de force',
+    'Remplacement de souche de cheminée',
+    'Étanchéité de antenne',
+    'Rejointoiement de tuile de ventilation',
+    'Désobstruction de descente d’eau pluviale',
+    'Dépannage de bac acier',
+    'Ajustement de crapaudine',
+    'Contrôle de panneau solaire',
+    'Redressement de sous-toiture HPV',
+    'Réparation de gouttière nantaise',
+    'Désobstruction de trop-plein',
+    'Traitement anti-pourriture des panne intermédiaire',
+    'Nettoyage de collier de descente',
+    'Réparation de closoir',
+    'Contrôle de poinçon',
+    'Dépannage de noue',
+    'Réparation de regard pluvial',
+    'Réparation de ardoises naturelles',
+    'Pose de chevron',
+    'Pose de gargouille',
+    'Contrôle de bac acier',
+    'Contrôle de larmier',
+    'Rejointoiement de égout de toiture',
+    'Traitement anti-pourriture des entrait',
+    'Test d’étanchéité de toiture',
+    'Ajustement de habillage de bandeau',
+    'Remplacement de zinc à joint debout',
+    'Remplacement de égout de toiture',
+    'Redressement de panne intermédiaire',
+    'Redressement de chevalet',
+    'Pose de regard pluvial',
+    'Remplacement de panneau solaire',
+    'Pose de habillage de bandeau',
+    'Nettoyage de membrane EPDM',
+    'Réparation de avaloir',
+    'Pose de arêtier',
+    'Dépannage de cheminée',
+    'Contrôle de paratonnerre',
+    'Pose de faîtage',
+    'Pose de sablière',
+    'Ajustement de gargouille',
+    'Dépose de tuiles mécaniques',
+    'Contrôle de chatière de ventilation',
+    'Remplacement de tuiles à emboîtement',
+    'Rejointoiement de bavette',
+    'Remplacement de gouttière en zinc',
+    'Nettoyage de habillage de bandeau',
+    'Remplacement de ardoises naturelles',
+    'Intervention d’urgence sur zinc',
+    'Redressement de poinçon',
+    'Pose de poinçon',
+    'Rejointoiement de chatière de ventilation',
+    'Remplacement de toiture végétalisée',
+    'Nettoyage de regard pluvial',
+    'Traitement anti-pourriture des ferme de charpente',
+    'Pose de ardoises naturelles',
+    'Remplacement de gouttière nantaise',
+    'Réparation de gargouille',
+    'Nettoyage de bardeaux bitumés',
+    'Étanchéité de fenêtre de toit',
+    'Dépose de ardoises naturelles',
+    'Désobstruction de gouttière demi-ronde',
+    'Pose de gouttière pendante',
+    'Réparation de bardeaux bitumés',
+    'Remplacement de tuiles mécaniques',
+    'Pose de chatière de ventilation',
+    'Nettoyage de dauphin',
+    'Intervention d’urgence sur tuiles',
+    'Dépose de tuiles à emboîtement',
+    'Pose de gouttière en zinc',
+    'Remplacement de larmier',
+    'Remplacement de bac acier',
+    'Pose de avaloir',
+    'Renforcement de ferme de charpente',
+    'Remplacement de ardoises fibrociment',
+    'Pose de tuiles à emboîtement',
+    'Traitement anti-insectes des arbalétrier',
+    'Contrôle de bavette',
+    'Contrôle de arêtier',
+    'Réparation provisoire de fenêtre de toit'
+  ];
+  var ul=document.getElementById('svc-list'),btn=document.getElementById('svc-more-btn'),step=20,shown=step;
+  if(!ul)return;
+  function render(){
+    ul.innerHTML=Svc.map(function(s,i){return '<li'+(i>=shown?' class="svc-hidden"':'')+'>'+s+'</li>'}).join('');
+    if(!btn)return;
+    if(shown>=Svc.length){btn.textContent='Voir moins';btn.onclick=function(){shown=step;render()}}
+    else{btn.textContent='Voir plus ('+Math.min(step,Svc.length-shown)+')';btn.onclick=function(){shown=Math.min(shown+step,Svc.length);render()}}
+  }
+  render();
+})();
+</script>
+<script>
+(function(){
+  /* Repli / flèche */
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.arrow,.fold-h');if(!b)return;
+    var f=b.closest('.fold'),o=f.classList.toggle('open');
+    f.querySelectorAll(':scope>.arrow,:scope>.fold-h').forEach(function(x){x.setAttribute('aria-expanded',o)});
+  });
+  /* Menu animé */
+  var root=document.documentElement,bg=document.getElementById('burger'),dr=document.getElementById('drawer');
+  function menu(o){root.classList.toggle('menu-open',o);bg.setAttribute('aria-expanded',o);dr.setAttribute('aria-hidden',!o);if(o)setTimeout(function(){document.getElementById('dclose').focus()},350);else bg.focus()}
+  bg.onclick=function(){menu(true)};
+  document.getElementById('dclose').onclick=function(){menu(false)};
+  document.getElementById('backdrop').onclick=function(){menu(false)};
+  dr.addEventListener('click',function(e){if(e.target.closest('a'))menu(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&root.classList.contains('menu-open'))menu(false)});
+  /* Avis clients défilant de droite à gauche.
+     ⚠ TEXTES D'EXEMPLE : à remplacer par de vrais avis clients (les faux avis sont interdits). */
+  var AVIS=[
+    ['Réparation','Fuite trouvée et réparée dès le lendemain, plafond sauvé. Très réactif.','Client · Lille'],
+    ['Rénovation','Toiture refaite en ardoise, résultat superbe et chantier impeccable.','Client · Roubaix'],
+    ['Zinguerie','Gouttières en zinc posées proprement, plus aucun débordement.','Client · Tourcoing'],
+    ['Démoussage','Toit nettoyé et traité, on dirait une couverture neuve.','Client · Marcq-en-Barœul'],
+    ['Devis','Devis clair et détaillé, aucune mauvaise surprise sur le prix.','Client · Villeneuve-d’Ascq'],
+    ['Après tempête','Tuiles remplacées rapidement après la tempête, intervention soignée.','Client · Lambersart'],
+    ['Cheminée','Solin de cheminée refait, plus aucune trace d’humidité.','Client · La Madeleine'],
+    ['Velux','Fenêtre de toit posée avec soin, étanchéité parfaite.','Client · Wasquehal'],
+    ['Charpente','Charpente contrôlée et traitée, conseils honnêtes et utiles.','Client · Lille'],
+    ['Chantier propre','Équipe ponctuelle, à l’écoute, chantier rangé chaque soir.','Client · Mons-en-Barœul']
+  ];
+  var box=document.getElementById('rv-bg');if(!box)return;
+  function card(a){return '<div class="rv-card"><div class="st" aria-hidden="true">★★★★★</div><p>'+a[1]+'</p><small>'+a[0]+' · '+a[2]+'</small></div>'}
+  [70,55,80,62].forEach(function(d,i){
+    var l=AVIS.slice(i*2).concat(AVIS.slice(0,i*2)),h=l.map(card).join('');
+    var r=document.createElement('div');r.className='rv-row';r.style.setProperty('--d',d+'s');r.innerHTML=h+h;box.appendChild(r);
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  var ids=['top','metier','services','simulateur','avant-apres','realisations','formulaire'];
+  function show(id){
+    if(ids.indexOf(id)<0)return;
+    document.querySelectorAll('.pg').forEach(function(p){p.hidden=p.getAttribute('data-pg')!==id});
+    window.scrollTo(0,0);
+    window.dispatchEvent(new Event('resize'));
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+    var id=a.getAttribute('href').slice(1);if(ids.indexOf(id)<0)return;
+    e.preventDefault();show(id);
+  });
+  show('top');
+})();
+</script>
+</body>
+</html>
